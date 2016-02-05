@@ -8,4 +8,4 @@ search_results = urllib.urlopen(url)
 json = simplejson.loads(search_results.read())
 results = json['responseData']['results']
 for i in results:
-print i['title'] + “: ” + i['url']
+    print i['title'] + “: ” + i['url']
