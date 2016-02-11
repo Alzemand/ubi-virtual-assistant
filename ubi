@@ -9,13 +9,11 @@ import pynotify
 pynotify.init("ubi")
 comand = sys.argv[1:]
 enter = ' '.join(comand)
-#print (enter)
-
 
 def resposta (x):
     if x == 'ola':
         print ""
-        notify = pynotify.Notification("Olá Edilson!", "", "/home/edilson/Projetos/ubi-virtual-assistant/ubi.svg")
+        notify = pynotify.Notification("Olá Edilson!", "", "/usr/bin/ubi.svg")
         notify.show()
     elif x == 'eu te amo':
         print ""
