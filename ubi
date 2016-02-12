@@ -6,6 +6,7 @@ import sys
 import os 
 import pynotify
 import re
+import socket
 
 pynotify.init("ubi")
 comand = sys.argv[1:]
@@ -16,7 +17,7 @@ enter = enter.lower()
 # show|me|whats|what|is|my|    
 
 def fun (x):
-    if x == 'hi' or x == 'hello':
+    if x == 'hi' or x == 'hello' or x == 'hey':
         os.system("finger `whoami` | sed 's/.*: *//;q' > log/log.txt")
         a = open ("log/log.txt", "r")
         b = a.read()
@@ -29,14 +30,15 @@ def fun (x):
     elif x == 'i love you' or  x == 'love you' or x == 'love u':
         notify = pynotify.Notification("")
         notify.show()
-    else:
-        notify = pynotify.Notification( "Sorry," , "", "/usr/bin/ubi.svg")
+#    else:
+#        notify = pynotify.Notification( "I'm sorry I didn't understand your question" , "", "/usr/bin/ubi.svg")
+#        notify.show()
               
      
 # user quest
    
 def user (x):
-    if x == 'whats my username?' or x == 'my username' or x == 'what is my username?' or x == 'whats my username?':
+    if x == 'whats my username' or x == 'my username' or x == 'what is my username' or x == 'whats my username':
         nome ="finger `whoami` | sed 's/.*: *//;q'"
         os.system("whoami > log/log.txt")
         a = open ("log/log.txt", "r")
@@ -58,11 +60,29 @@ def user (x):
         print ("ubi: " + d)
         notify = pynotify.Notification( d , "" , "/usr/bin/ubi.svg")
         notify.show()
+#    else:
+#        notify = pynotify.Notification( "I'm sorry I didn't understand your question" , "", "/usr/bin/ubi.svg")
+#        notify.show() 
 
-
-    else:
-        return "nothing"
-
+def network (x):
+    if x == 'what is my ip' or x == 'my ip' or x == 'whats my ip' + '?':
+        print ("connecting...")
+        os.system('curl -sL http://pannous.net/ip.php > log/log.txt')
+        a = open ("log/log.txt", "r")
+        b = a.read()
+        c = ' '
+        d = c + b
+        a.close()
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("ubuntu.com",80))
+        e = (s.getsockname()[0])
+        s.close()
+        print ("ubi: local " + e)
+        print ("ubi: external" + d)
+        notify = pynotify.Notification('local: ' + e , 'external: ' + d , "/usr/bin/ubi.svg")
+        notify.show()
 
 fun(enter)
 user(enter)
+network(enter)
+
