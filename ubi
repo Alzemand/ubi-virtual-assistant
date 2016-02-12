@@ -12,6 +12,7 @@ pynotify.init("ubi")
 comand = sys.argv[1:]
 enter = ' '.join(comand)
 enter = enter.lower()
+enter = enter.replace('?', '')
 
 # notify-send -i /usr/bin/ubi.svg 'Este parece o ícone...'
 # show|me|whats|what|is|my|    
@@ -49,7 +50,7 @@ def user (x):
         print ("ubi: " + d)
         notify = pynotify.Notification( d , "" , "/usr/bin/ubi.svg")
         notify.show()
-    elif x == 'whats my real name?' or x == 'my name' or x == 'what is my name?' or x == 'whats my name?':
+    elif x == 'whats my real name' or x == 'my name' or x == 'what is my name' or x == 'whats my name':
         nome ="finger `whoami` | sed 's/.*: *//;q'"
         os.system("finger `whoami` | sed 's/.*: *//;q' > log/log.txt")
         a = open ("log/log.txt", "r")
@@ -65,7 +66,7 @@ def user (x):
 #        notify.show() 
 
 def network (x):
-    if x == 'what is my ip' or x == 'my ip' or x == 'whats my ip' + '?':
+    if x == 'what is my ip' or x == 'my ip' or x == 'whats my ip':
         print ("connecting...")
         os.system('curl -sL http://pannous.net/ip.php > log/log.txt')
         a = open ("log/log.txt", "r")
