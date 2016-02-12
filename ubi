@@ -43,10 +43,8 @@ def user (x):
         notify = pynotify.Notification( d , " ", "/usr/bin/ubi.svg")
         notify.show()
 
-        
-        
-        
-    
-    
+def system (x):
+
+
 fun(enter)
 user(enter)
