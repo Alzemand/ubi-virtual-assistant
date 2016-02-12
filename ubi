@@ -5,19 +5,38 @@
 import sys
 import os 
 import pynotify
+import re
 
 pynotify.init("ubi")
 comand = sys.argv[1:]
 enter = ' '.join(comand)
+enter = enter.lower()
 
-def resposta (x):
+# notify-send -i /usr/bin/ubi.svg 'Este parece o ícone da câmera...'
+# show|me|whats|what|is|my|    
+
+def fun (x):
     if x == 'ola':
         print ""
-        notify = pynotify.Notification("Olá Edilson!", "", "/usr/bin/ubi.svg")
+        notify = pynotify.Notification("Olá Edilson!!", "", "/usr/bin/ubi.svg")
         notify.show()
     elif x == 'eu te amo':
         print ""
         notify = pynotify.Notification("")
         notify.show()
+              
         
-resposta(enter)
+def user (x):
+    if x == 'qual' + 'é' or 'mostre' or  "meu nome": 
+        nome ="finger `whoami` | sed 's/.*: *//;q'"
+        os.system(nome)
+        notify = pynotify.Notification("Olá Edilson!", " ", "/usr/bin/ubi.svg")
+        notify.show()
+
+        
+        
+        
+    
+    
+fun(enter)
+user(enter)
