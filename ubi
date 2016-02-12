@@ -16,34 +16,52 @@ enter = enter.lower()
 # show|me|whats|what|is|my|    
 
 def fun (x):
-    if x == 'hi' or 'hello':
+    if x == 'hi' or x == 'hello':
         os.system("finger `whoami` | sed 's/.*: *//;q' > log/log.txt")
         a = open ("log/log.txt", "r")
         b = a.read()
         c = 'Hi, '
         d = c + b
         a.close()
-        os.system("rm log/log.txt")
+        print ("ubi: " + d)
         notify = pynotify.Notification( d , "", "/usr/bin/ubi.svg")
         notify.show()
-    elif x == 'i love you' or 'love you' or 'love u':
+    elif x == 'i love you' or  x == 'love you' or x == 'love u':
         notify = pynotify.Notification("")
         notify.show()
+    else:
+        notify = pynotify.Notification( "Sorry," , "", "/usr/bin/ubi.svg")
               
-        
+     
+# user quest
+   
 def user (x):
-    if x == "qual meu nome": 
+    if x == 'whats my username?' or x == 'my username' or x == 'what is my username?' or x == 'whats my username?':
+        nome ="finger `whoami` | sed 's/.*: *//;q'"
+        os.system("whoami > log/log.txt")
+        a = open ("log/log.txt", "r")
+        b = a.read()
+        c = 'Your username is '
+        d = c + b
+        a.close()
+        print ("ubi: " + d)
+        notify = pynotify.Notification( d , "" , "/usr/bin/ubi.svg")
+        notify.show()
+    elif x == 'whats my real name?' or x == 'my name' or x == 'what is my name?' or x == 'whats my name?':
         nome ="finger `whoami` | sed 's/.*: *//;q'"
         os.system("finger `whoami` | sed 's/.*: *//;q' > log/log.txt")
         a = open ("log/log.txt", "r")
         b = a.read()
-        c = 'Your name is, '
+        c = 'Your name is '
         d = c + b
         a.close()
-        notify = pynotify.Notification( d , " ", "/usr/bin/ubi.svg")
+        print ("ubi: " + d)
+        notify = pynotify.Notification( d , "" , "/usr/bin/ubi.svg")
         notify.show()
 
-def system (x):
+
+    else:
+        return "nothing"
 
 
 fun(enter)
