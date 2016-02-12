@@ -17,7 +17,7 @@ def resposta (x):
         notify.show()
     elif x == 'eu te amo':
         print ""
-        notify = pynotify.Notification("Você não pode amar um software, sou de sagitário", "", "/home/edilson/Projetos/ubi-virtual-assistant/ubi.svg")
+        notify = pynotify.Notification("")
         notify.show()
         
 resposta(enter)
