@@ -3,7 +3,7 @@
 # Author: Edilson Alzemand
 
 import sys
-import os 
+import os
 import pynotify
 import re
 import socket
@@ -15,7 +15,7 @@ enter = enter.lower()
 enter = enter.replace('?', '')
 
 # notify-send -i /usr/bin/ubi.svg 'Este parece o ícone...'
-# show|me|whats|what|is|my|    
+# show|me|whats|what|is|my|
 
 def fun (x):
     if x == 'hi' or x == 'hello' or x == 'hey':
@@ -31,15 +31,9 @@ def fun (x):
     elif x == 'i love you' or  x == 'love you' or x == 'love u':
         notify = pynotify.Notification("")
         notify.show()
-#    else:
-#        notify = pynotify.Notification( "I'm sorry I didn't understand your question" , "", "/usr/bin/ubi.svg")
-#        notify.show()
-              
-     
-# user quest
-   
-def user (x):
-    if x == 'whats my username' or x == 'my username' or x == 'what is my username' or x == 'whats my username':
+    return 0
+
+def username ():
         nome ="finger `whoami` | sed 's/.*: *//;q'"
         os.system("whoami > log/log.txt")
         a = open ("log/log.txt", "r")
@@ -50,7 +44,8 @@ def user (x):
         print ("ubi: " + d)
         notify = pynotify.Notification( d , "" , "/usr/bin/ubi.svg")
         notify.show()
-    elif x == 'whats my real name' or x == 'my name' or x == 'what is my name' or x == 'whats my name':
+
+def name():
         nome ="finger `whoami` | sed 's/.*: *//;q'"
         os.system("finger `whoami` | sed 's/.*: *//;q' > log/log.txt")
         a = open ("log/log.txt", "r")
@@ -61,12 +56,8 @@ def user (x):
         print ("ubi: " + d)
         notify = pynotify.Notification( d , "" , "/usr/bin/ubi.svg")
         notify.show()
-#    else:
-#        notify = pynotify.Notification( "I'm sorry I didn't understand your question" , "", "/usr/bin/ubi.svg")
-#        notify.show() 
 
-def network (x):
-    if x == 'what is my ip' or x == 'my ip' or x == 'whats my ip':
+def network ():
         print ("connecting...")
         os.system('curl -sL http://pannous.net/ip.php > log/log.txt')
         a = open ("log/log.txt", "r")
@@ -83,7 +74,23 @@ def network (x):
         notify = pynotify.Notification('local: ' + e , 'external: ' + d , "/usr/bin/ubi.svg")
         notify.show()
 
-fun(enter)
-user(enter)
-network(enter)
+def sorry ():
+    print ("ubi: I'm sorry I didn't understand your question\n" )
+    notify = pynotify.Notification( "I'm sorry I didn't understand your question" , "", "/usr/bin/ubi.svg")
+    notify.show()
 
+
+a1 = enter.find('my username')
+a2 = enter.find('my name')
+a3 = enter.find('my ip')
+
+
+
+if enter[a1:] == 'my username':
+    username()
+elif enter[a2:] == 'my name':
+    name()
+elif enter[a3:] == 'my ip':
+    network()
+else:
+    sorry()
