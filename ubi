@@ -14,8 +14,6 @@ enter = ' '.join(comand)
 enter = enter.lower()
 enter = enter.replace('?', '')
 
-# notify-send -i /usr/bin/ubi.svg 'Este parece o ícone...'
-# show|me|whats|what|is|my|
 
 def fun (x):
     if x == 'hi' or x == 'hello' or x == 'hey':
@@ -31,7 +29,8 @@ def fun (x):
     elif x == 'i love you' or  x == 'love you' or x == 'love u':
         notify = pynotify.Notification("")
         notify.show()
-    return 0
+    else:
+        return False
 
 def username ():
         nome ="finger `whoami` | sed 's/.*: *//;q'"
@@ -74,6 +73,17 @@ def network ():
         notify = pynotify.Notification('local: ' + e , 'external: ' + d , "/usr/bin/ubi.svg")
         notify.show()
 
+def speedtest ():
+    print ("ubi: Ok, connecting...")
+    os.system("./lib/speedtest --simple > log/speedtest_log.txt")
+    a = open("log/speedtest_log.txt", "r")
+    ping = a.readline()
+    download = a.readline()
+    upload = a.readline()
+    notify = pynotify.Notification( download + upload , ping , "/usr/bin/ubi.svg")
+    print (download + upload + ping)
+    notify.show()
+
 def sorry ():
     print ("ubi: I'm sorry I didn't understand your question\n" )
     notify = pynotify.Notification( "I'm sorry I didn't understand your question" , "", "/usr/bin/ubi.svg")
@@ -83,6 +93,7 @@ def sorry ():
 a1 = enter.find('my username')
 a2 = enter.find('my name')
 a3 = enter.find('my ip')
+a4 = enter.find('speedtest')
 
 
 
@@ -92,5 +103,8 @@ elif enter[a2:] == 'my name':
     name()
 elif enter[a3:] == 'my ip':
     network()
-else:
-    sorry()
+elif enter[a4:] == 'speedtest':
+    speedtest()
+
+elif fun(enter) == False:
+        sorry()
