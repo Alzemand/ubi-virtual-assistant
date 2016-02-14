@@ -40,7 +40,7 @@ def fun (x):
         notify = pynotify.Notification("You are welcome!", ":)", "/usr/bin/ubi.svg")
         notify.show()
     elif x == '':
-        print ("ubi: How can I help you?\n")
+        print ("ubi: Hi am ubi. How can I help you?\n")
         notify = pynotify.Notification("Hi! I am ubi. How can I help you?", "type a command", "/usr/bin/ubi.svg")
         notify.show()
     else:
@@ -111,10 +111,27 @@ def search (x):
 def mac ():
     mac = ':'.join(['{:02x}'.format((uuid.getnode() >> i) & 0xff) for i in range(0,8*6,8)][::-1])
     mac = mac.upper()
-    print "Your MAC Adress is: " + mac
+    print "ubi: Your MAC Adress is: " + mac
     print ''
     notify = pynotify.Notification( "Your MAC Adress is: " + mac, "", "/usr/bin/ubi.svg")
     notify.show()
+
+def changemac ():
+    mac = os.listdir('/sys/class/net/')
+    print "ubi: you have the following interfaces:\n "
+    print mac
+    print ''
+    print "ubi: Which network interface you like to change?"
+    x = input("     enter 0 , 1 or 2 respectively: ")
+    ad = mac[x]
+    os.system("sudo ifconfig " + ad + " down")
+    print
+    y = raw_input("ubi: Enter your new mac address [XX:XX:XX:XX:XX:XX]: ")
+    print ''
+    os.system("sudo ifconfig " + ad + " hw" + " ether " + y)
+    print ("ubi: Connecting again...")
+    os.system("sleep 6")
+    os.system("sudo ifconfig " + ad + " up")
 
 def sorry ():
     print ("ubi: I'm sorry I didn't understand your question\n" )
@@ -128,6 +145,8 @@ a4 = enter.find('speedtest')
 a5 = enter.split()
 a6 = enter.find('my mac')
 a7 = enter.find('my mac adress')
+a8 = enter.find('change mac')
+a9 = enter.find('change mac adress')
 
 if enter[a1:] == 'my username':
     username()
@@ -151,6 +170,8 @@ elif a5[0] == 'search' and a5[1] == 'for':
     search(s)
 elif enter[a6:] == "my mac" or enter[a7:] == "my mac adress":
     mac()
+elif enter[a8:] == 'change mac' or enter[a9:] == 'change mac adress':
+    changemac()
 
 elif fun(enter) == False:
         sorry()
