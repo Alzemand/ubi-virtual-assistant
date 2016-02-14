@@ -18,7 +18,7 @@ comand = sys.argv[1:]
 enter = ' '.join(comand)
 enter = enter.lower()
 enter = enter.replace('?', '')
-
+enter = enter.replace('!', '')
 
 def fun (x):
     if x == 'hi' or x == 'hello' or x == 'hey':
@@ -33,6 +33,10 @@ def fun (x):
         notify.show()
     elif x == 'i love you' or  x == 'love you' or x == 'love u':
         notify = pynotify.Notification("")
+        notify.show()
+    elif x == '':
+        print ("How can I help you?\n")
+        notify = pynotify.Notification("Hi! I am ubi. How can I help you?", "type a command", "/usr/bin/ubi.svg")
         notify.show()
     else:
         return False
@@ -61,7 +65,8 @@ def name():
         notify = pynotify.Notification( d , "" , "/usr/bin/ubi.svg")
         notify.show()
 
-def network ():
+def ip ():
+    try:
         print ("connecting...")
         os.system('curl -sL http://pannous.net/ip.php > log/log.txt')
         a = open ("log/log.txt", "r")
@@ -77,6 +82,10 @@ def network ():
         print ("ubi: external" + d)
         notify = pynotify.Notification('local: ' + e , 'external: ' + d , "/usr/bin/ubi.svg")
         notify.show()
+    except:
+        print "Hoo! You are not connected to the Internet"
+        notify = pynotify.Notification("Hoo! You are not connected to the Internet" , "", "/usr/bin/ubi.svg")
+        notify.show()
 
 def speedtest ():
     print ("ubi: Ok, connecting...")
@@ -89,27 +98,41 @@ def speedtest ():
     print (download + upload + ping)
     notify.show()
 
+def search (x):
+    x = x.replace ('who' ,'')
+    x = x.replace ('search', '')
+    x = x.replace ('for', '')
+    x = x.replace ('is', '')
+    notify = pynotify.Notification("okay, I look" + x + " for you" , "", "/usr/bin/ubi.svg")
+    notify.show()
+    os.system("./lib/ubi-search-module " + x)
+
 def sorry ():
     print ("ubi: I'm sorry I didn't understand your question\n" )
     notify = pynotify.Notification( "I'm sorry I didn't understand your question" , "", "/usr/bin/ubi.svg")
     notify.show()
 
-
 a1 = enter.find('my username')
 a2 = enter.find('my name')
 a3 = enter.find('my ip')
 a4 = enter.find('speedtest')
-
-
+a5 = enter.split()
 
 if enter[a1:] == 'my username':
     username()
 elif enter[a2:] == 'my name':
     name()
 elif enter[a3:] == 'my ip':
-    network()
+    ip()
 elif enter[a4:] == 'speedtest':
     speedtest()
+elif a5 == []:
+    fun(enter)
+elif a5[0] == 'who' and a5[1] == 'is':
+    search(enter)
+elif a5[0] == 'search' and a5[1] == 'for':
+    search(enter)
+
 
 elif fun(enter) == False:
         sorry()
