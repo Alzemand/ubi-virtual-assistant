@@ -72,7 +72,7 @@ def name():
 
 def ip ():
     try:
-        print ("connecting...")
+        print ("connecting...\n")
         os.system('curl -sL http://pannous.net/ip.php > log/log.txt')
         a = open ("log/log.txt", "r")
         b = a.read()
