@@ -22,7 +22,7 @@ def fun (x):
         os.system("finger `whoami` | sed 's/.*: *//;q' > log/log.txt")
         a = open ("log/log.txt", "r")
         b = a.read()
-        c = ['Hi, ' , 'Hello, ',]
+        c = ["Hi, " , "Hello, ", "What's up! "]
         c1 = choice(c)
         d = c1 + b
         a.close()
@@ -89,7 +89,7 @@ def ip ():
         notify.show()
 
 def speedtest ():
-    print ("ubi: Ok, connecting...")
+    print ("ubi: Ok, connecting...\n")
     os.system("./lib/speedtest --simple > log/speedtest_log.txt")
     a = open("log/speedtest_log.txt", "r")
     ping = a.readline()
@@ -112,6 +112,25 @@ def mac ():
     notify = pynotify.Notification( "Your MAC Adress is: " + mac, "", "/usr/bin/ubi.svg")
     notify.show()
 
+def undelete():
+    print ("ubi: Ok, lets restore you files\n")
+    print ("ubi: I need to be called into the directory")
+    os.system("sleep 3")
+    os.system("sudo fdisk -l")
+    dev = raw_input("ubi: Enter the name of the partition where your Linux this: exemple: /dev/sda1: ")
+    os.system("pwd > log/log.txt")
+    a = open ("log/log.txt", "r")
+    b = a.readline()
+    b = b.replace('\n', '')
+    b1 = raw_input("ubi: Enter the file name and extension: ")
+    # c = b + '/*.*'
+    b1 = '/' + b1
+    # c = o caminho inteiro do arquivo apagado
+    c = b + b1
+    os.system("sudo extundelete --restore-file " + c + " " + dev)
+    # os.system("sudo extundelete /dev/sda1 --restore-directory " + b)
+    # sudo extundelete /dev/sda1 --restore-all
+
 def sorry ():
     print ("ubi: I'm sorry I didn't understand your question\n" )
     notify = pynotify.Notification( "I'm sorry I didn't understand your question" , "", "/usr/bin/ubi.svg")
@@ -124,6 +143,7 @@ a4 = enter.find('speedtest')
 a5 = enter.split()
 a6 = enter.find('my mac')
 a7 = enter.find('my mac adress')
+a8 = enter.find('restore file')
 
 if enter[a1:] == 'my username':
     username()
@@ -147,5 +167,7 @@ elif a5[0] == 'search' and a5[1] == 'for':
     search(s)
 elif enter[a6:] == "my mac" or enter[a7:] == "my mac adress":
     mac()
+elif enter[a8:] == "restore file":
+    undelete()
 elif fun(enter) == False:
     sorry()
