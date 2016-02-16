@@ -10,11 +10,6 @@ import socket
 import uuid
 from random import choice
 
-'''
-future >>>>>
-lista = [1,2,3,4,5,6,7,8,9]
-print choice(lista)'''
-
 pynotify.init("ubi")
 comand = sys.argv[1:]
 enter = ' '.join(comand)
@@ -28,7 +23,8 @@ def fun (x):
         a = open ("log/log.txt", "r")
         b = a.read()
         c = ['Hi, ' , 'Hello, ',]
-        d = c + b
+        c1 = choice(c)
+        d = c1 + b
         a.close()
         print ("ubi: " + d)
         notify = pynotify.Notification( d , "", "/usr/bin/ubi.svg")
