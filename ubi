@@ -30,7 +30,7 @@ def fun (x):
         notify = pynotify.Notification( d , "", "/usr/bin/ubi.svg")
         notify.show()
     elif x == 'i love you' or  x == 'love you' or x == 'love u':
-        notify = pynotify.Notification("")
+        notify = pynotify.Notification( d , "", "/usr/bin/ubi.svg")
         notify.show()
     elif x == 'thank you' or x == 'thanks':
         print ("ubi: You are welcome!\n")
@@ -141,8 +141,6 @@ def kernel ():
     print ''
     notify = pynotify.Notification("Your Kernel is: " + b , "", "/usr/bin/ubi.svg")
     notify.show()
-
-
 
 def sorry ():
     print ("ubi: I'm sorry I didn't understand your question\n" )
