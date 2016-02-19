@@ -36,8 +36,20 @@ def fun (x):
         print ("ubi: You are welcome!\n")
         notify = pynotify.Notification("You are welcome!", ":)", "/usr/bin/ubi.svg")
         notify.show()
+    elif x == 'good morning':
+        os.system("date > log/log.txt")
+        a = open ("log/log.txt", "r")
+        date = a.read()
+        print "ubi: Good morning\n"
+        notify = pynotify.Notification("Good morning", date, "/usr/bin/ubi.svg")
+        notify.show()
+# In short, I am your personal assistant. I try to make things easier to do on your computer
+    elif x == 'tell me about yourself':
+        print "ubi: In short, I am your personal assistant. I try to make things easier to do on your computer\n"
+        notify = pynotify.Notification("In short, I am your personal assistant. I try to make things easier to do on your computer", '', "/usr/bin/ubi.svg")
+        notify.show()
     elif x == '':
-        print ("ubi: Hi am ubi. How can I help you?\n")
+        print ("ubi: Hi I am ubi. How can I help you?\n")
         notify = pynotify.Notification("Hi! I am ubi. How can I help you?", "type a command", "/usr/bin/ubi.svg")
         notify.show()
     else:
@@ -156,7 +168,6 @@ a6 = enter.find('my mac')
 a7 = enter.find('my mac adress')
 a8 = enter.find('restore file')
 a9 = enter.find('my kernel')
-
 
 if enter[a1:] == 'my username':
     username()
