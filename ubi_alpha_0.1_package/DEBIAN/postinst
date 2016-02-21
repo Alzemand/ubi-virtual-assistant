@@ -1,0 +1,7 @@
+#!/bin/sh
+
+#Este script executa qualquer configuração requerida pelo
+#pacote, depois que o mesmo foi desempacotado pelo sistema. Geral-
+#mente ele apresenta interações com o usuário , exibe informações úteis
+#de configurações, ou reconfigura algum arquivo pré-existente.
+
