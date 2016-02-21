@@ -2,7 +2,7 @@ Package: ubi-virtual-assistant
 source: ubi
 Version:0.1
 Architecture: all
-Depends: python-webkit, python-pygame
+Depends: python-webkit, python-pygame, python-notify, finger
 installed-Size: 138
 Maintainer:Edilson Alzemand
 Description: ubi is a friendly interface for your command line.
