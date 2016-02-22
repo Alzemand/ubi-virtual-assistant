@@ -1,6 +1,4 @@
-<p align="center">
 # ubi virtual assistant
-</p>
 
 ubi is a Virtual Assistante and a friendly interface for your command line.
 She translates phrases into commands in case you ever run into situations.
