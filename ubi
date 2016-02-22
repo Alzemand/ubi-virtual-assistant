@@ -19,70 +19,68 @@ enter = enter.replace('!', '')
 
 def fun (x):
     if x == 'hi' or x == 'hello' or x == 'hey':
-        os.system("finger `whoami` | sed 's/.*: *//;q' > log/log.txt")
-        a = open ("log/log.txt", "r")
+        os.system("finger `whoami` | sed 's/.*: *//;q' > /tmp/ubi_tmp.txt")
+        a = open ("/tmp/ubi_tmp.txt", "r")
         b = a.read()
         c = ["Hi, " , "Hello, ", "What's up! "]
         c1 = choice(c)
         d = c1 + b
         a.close()
         print ("ubi: " + d)
-        notify = pynotify.Notification( d , "", "/usr/bin/ubi.svg")
+        notify = pynotify.Notification( d , "", "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
     elif x == 'i love you' or  x == 'love you' or x == 'love u':
-        notify = pynotify.Notification( d , "", "/usr/bin/ubi.svg")
+        notify = pynotify.Notification( d , "", "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
     elif x == 'thank you' or x == 'thanks':
         print ("ubi: You are welcome!\n")
-        notify = pynotify.Notification("You are welcome!", ":)", "/usr/bin/ubi.svg")
+        notify = pynotify.Notification("You are welcome!", ":)", "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
     elif x == 'good morning':
-        os.system("date > log/log.txt")
-        a = open ("log/log.txt", "r")
+        os.system("date > /tmp/ubi_tmp.txt")
+        a = open ("/tmp/ubi_tmp.txt", "r")
         date = a.read()
         print "ubi: Good morning\n"
-        notify = pynotify.Notification("Good morning", date, "/usr/bin/ubi.svg")
+        notify = pynotify.Notification("Good morning", date, "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
-# In short, I am your personal assistant. I try to make things easier to do on your computer
     elif x == 'tell me about yourself':
         print "ubi: In short, I am your personal assistant. I try to make things easier to do on your computer\n"
-        notify = pynotify.Notification("In short, I am your personal assistant. I try to make things easier to do on your computer", '', "/usr/bin/ubi.svg")
+        notify = pynotify.Notification("In short, I am your personal assistant. I try to make things easier to do on your computer", '', "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
     elif x == '':
         print ("ubi: Hi I am ubi. How can I help you?\n")
-        notify = pynotify.Notification("Hi! I am ubi. How can I help you?", "type a command", "/usr/bin/ubi.svg")
+        notify = pynotify.Notification("I am ubi. How can I help you?", "type a command", "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
     else:
         return False
 
 def username ():
-        os.system("whoami > log/log.txt")
-        a = open ("log/log.txt", "r")
+        os.system("whoami > /tmp/ubi_tmp.txt")
+        a = open ("/tmp/ubi_tmp.txt", "r")
         b = a.read()
         c = 'Your username is '
         d = c + b
         a.close()
         print ("ubi: " + d)
-        notify = pynotify.Notification( d , "" , "/usr/bin/ubi.svg")
+        notify = pynotify.Notification( d , "" , "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
 
 def name():
-        nome ="finger `whoami` | sed 's/.*: *//;q'"
-        os.system("finger `whoami` | sed 's/.*: *//;q' > log/log.txt")
-        a = open ("log/log.txt", "r")
+        os.system("finger `whoami` | sed 's/.*: *//;q' > /tmp/ubi_tmp.txt")
+        a = open ("/tmp/ubi_tmp.txt", "r")
         b = a.read()
         c = 'Your name is '
         d = c + b
         a.close()
         print ("ubi: " + d)
-        notify = pynotify.Notification( d , "" , "/usr/bin/ubi.svg")
+        notify = pynotify.Notification( d , "" , "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
 
 def ip ():
     try:
         print ("connecting...\n")
-        os.system('curl -sL http://pannous.net/ip.php > log/log.txt')
-        a = open ("log/log.txt", "r")
+        os.system('curl -sL http://pannous.net/ip.php > /tmp/ubi_tmp.txt')
+        a = open ("/tmp/ubi_tmp.txt", "r")
         b = a.read()
         c = ' '
         d = c + b
@@ -93,35 +91,35 @@ def ip ():
         s.close()
         print ("ubi: local " + e)
         print ("ubi: external" + d)
-        notify = pynotify.Notification('local: ' + e , 'external: ' + d , "/usr/bin/ubi.svg")
+        notify = pynotify.Notification('local: ' + e , 'external: ' + d , "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
     except:
         print "Hoo! You are not connected to the Internet"
-        notify = pynotify.Notification("Hoo! You are not connected to the Internet" , "", "/usr/bin/ubi.svg")
+        notify = pynotify.Notification("Hoo! You are not connected to the Internet" , "", "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
 
 def speedtest ():
     print ("ubi: Ok, connecting...\n")
-    os.system("./lib/speedtest --simple > log/speedtest_log.txt")
-    a = open("log/speedtest_log.txt", "r")
+    os.system("/usr/share/ubi/lib/speedtest --simple > /tmp/ubi_tmp.txt")
+    a = open("/tmp/ubi_tmp.txt", "r")
     ping = a.readline()
     download = a.readline()
     upload = a.readline()
-    notify = pynotify.Notification( download + upload , ping , "/usr/bin/ubi.svg")
+    notify = pynotify.Notification( download + upload , ping , "/usr/share/ubi/lib/img/ubi.svg")
     print (download + upload + ping)
     notify.show()
 
 def search (x):
-    notify = pynotify.Notification("okay, I look " + x + " for you" , "", "/usr/bin/ubi.svg")
+    notify = pynotify.Notification("okay, I look " + x + " for you" , "", "/usr/share/ubi/lib/img/ubi.svg")
     notify.show()
-    os.system("./lib/ubi-search-module " + x)
+    os.system("/usr/share/ubi/lib/ubi-search-module " + x)
 
 def mac ():
     mac = ':'.join(['{:02x}'.format((uuid.getnode() >> i) & 0xff) for i in range(0,8*6,8)][::-1])
     mac = mac.upper()
     print "ubi: Your MAC Adress is: " + mac
     print ''
-    notify = pynotify.Notification( "Your MAC Adress is: " + mac, "", "/usr/bin/ubi.svg")
+    notify = pynotify.Notification( "Your MAC Adress is: " + mac, "", "/usr/share/ubi/lib/img/ubi.svg")
     notify.show()
 
 def undelete():
@@ -130,8 +128,8 @@ def undelete():
     os.system("sleep 3")
     os.system("sudo fdisk -l")
     dev = raw_input("ubi: Enter the name of the partition where your Linux this: exemple: /dev/sda1: ")
-    os.system("pwd > log/log.txt")
-    a = open ("log/log.txt", "r")
+    os.system("pwd > /tmp/ubi_tmp.txt")
+    a = open ("/tmp/ubi_tmp.txt", "r")
     b = a.readline()
     b = b.replace('\n', '')
     b1 = raw_input("ubi: Enter the file name and extension: ")
@@ -144,25 +142,25 @@ def undelete():
     # sudo extundelete /dev/sda1 --restore-all
 
 def kernel ():
-    os.system("uname -r > log/log.txt")
-    a = open ("log/log.txt", "r")
+    os.system("uname -r > /tmp/ubi_tmp.txt")
+    a = open ("/tmp/ubi_tmp.txt", "r")
     b = a.read()
     c = "ubi: Your kernel is: "
     d = c + b
     print (c + b)
-    print ''
-    notify = pynotify.Notification("Your Kernel is: " + b , "", "/usr/bin/ubi.svg")
+    notify = pynotify.Notification("Your Kernel is: " + b , "", "/usr/share/ubi/lib/img/ubi.svg")
     notify.show()
 
 def sorry ():
     print ("ubi: I'm sorry I didn't understand your question\n" )
-    notify = pynotify.Notification( "I'm sorry I didn't understand your question" , "", "/usr/bin/ubi.svg")
+    notify = pynotify.Notification( "I'm sorry I didn't understand your question" , "", "/usr/share/ubi/lib/img/ubi.svg")
     notify.show()
 
 a1 = enter.find('my username')
 a2 = enter.find('my name')
 a3 = enter.find('my ip')
 a4 = enter.find('speedtest')
+a44 = enter.find ('speed test')
 a5 = enter.split()
 a6 = enter.find('my mac')
 a7 = enter.find('my mac adress')
@@ -175,7 +173,7 @@ elif enter[a2:] == 'my name':
     name()
 elif enter[a3:] == 'my ip':
     ip()
-elif enter[a4:] == 'speedtest':
+elif enter[a4:] == 'speedtest' or enter[a44:] == 'speed test':
     speedtest()
 elif a5 == []:
     fun(enter)
