@@ -27,29 +27,29 @@ def fun (x):
         d = c1 + b
         a.close()
         print ("ubi: " + d)
-        notify = pynotify.Notification( d , "", "/usr/bin/ubi.svg")
+        notify = pynotify.Notification( d , "", "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
     elif x == 'i love you' or  x == 'love you' or x == 'love u':
-        notify = pynotify.Notification( d , "", "/usr/bin/ubi.svg")
+        notify = pynotify.Notification( d , "", "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
     elif x == 'thank you' or x == 'thanks':
         print ("ubi: You are welcome!\n")
-        notify = pynotify.Notification("You are welcome!", ":)", "/usr/bin/ubi.svg")
+        notify = pynotify.Notification("You are welcome!", ":)", "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
     elif x == 'good morning':
         os.system("date > /tmp/ubi_tmp.txt")
         a = open ("/tmp/ubi_tmp.txt", "r")
         date = a.read()
         print "ubi: Good morning\n"
-        notify = pynotify.Notification("Good morning", date, "/usr/bin/ubi.svg")
+        notify = pynotify.Notification("Good morning", date, "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
     elif x == 'tell me about yourself':
         print "ubi: In short, I am your personal assistant. I try to make things easier to do on your computer\n"
-        notify = pynotify.Notification("In short, I am your personal assistant. I try to make things easier to do on your computer", '', "/usr/bin/ubi.svg")
+        notify = pynotify.Notification("In short, I am your personal assistant. I try to make things easier to do on your computer", '', "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
     elif x == '':
         print ("ubi: Hi I am ubi. How can I help you?\n")
-        notify = pynotify.Notification("I am ubi. How can I help you?", "type a command", "/usr/bin/ubi.svg")
+        notify = pynotify.Notification("I am ubi. How can I help you?", "type a command", "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
     else:
         return False
@@ -62,7 +62,7 @@ def username ():
         d = c + b
         a.close()
         print ("ubi: " + d)
-        notify = pynotify.Notification( d , "" , "/usr/bin/ubi.svg")
+        notify = pynotify.Notification( d , "" , "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
 
 def name():
@@ -73,7 +73,7 @@ def name():
         d = c + b
         a.close()
         print ("ubi: " + d)
-        notify = pynotify.Notification( d , "" , "/usr/bin/ubi.svg")
+        notify = pynotify.Notification( d , "" , "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
 
 def ip ():
@@ -91,11 +91,11 @@ def ip ():
         s.close()
         print ("ubi: local " + e)
         print ("ubi: external" + d)
-        notify = pynotify.Notification('local: ' + e , 'external: ' + d , "/usr/bin/ubi.svg")
+        notify = pynotify.Notification('local: ' + e , 'external: ' + d , "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
     except:
         print "Hoo! You are not connected to the Internet"
-        notify = pynotify.Notification("Hoo! You are not connected to the Internet" , "", "/usr/bin/ubi.svg")
+        notify = pynotify.Notification("Hoo! You are not connected to the Internet" , "", "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
 
 def speedtest ():
@@ -105,12 +105,12 @@ def speedtest ():
     ping = a.readline()
     download = a.readline()
     upload = a.readline()
-    notify = pynotify.Notification( download + upload , ping , "/usr/bin/ubi.svg")
+    notify = pynotify.Notification( download + upload , ping , "/usr/share/ubi/lib/img/ubi.svg")
     print (download + upload + ping)
     notify.show()
 
 def search (x):
-    notify = pynotify.Notification("okay, I look " + x + " for you" , "", "/usr/bin/ubi.svg")
+    notify = pynotify.Notification("okay, I look " + x + " for you" , "", "/usr/share/ubi/lib/img/ubi.svg")
     notify.show()
     os.system("/usr/share/ubi/lib/ubi-search-module " + x)
 
@@ -119,7 +119,7 @@ def mac ():
     mac = mac.upper()
     print "ubi: Your MAC Adress is: " + mac
     print ''
-    notify = pynotify.Notification( "Your MAC Adress is: " + mac, "", "/usr/bin/ubi.svg")
+    notify = pynotify.Notification( "Your MAC Adress is: " + mac, "", "/usr/share/ubi/lib/img/ubi.svg")
     notify.show()
 
 def undelete():
@@ -148,12 +148,12 @@ def kernel ():
     c = "ubi: Your kernel is: "
     d = c + b
     print (c + b)
-    notify = pynotify.Notification("Your Kernel is: " + b , "", "/usr/bin/ubi.svg")
+    notify = pynotify.Notification("Your Kernel is: " + b , "", "/usr/share/ubi/lib/img/ubi.svg")
     notify.show()
 
 def sorry ():
     print ("ubi: I'm sorry I didn't understand your question\n" )
-    notify = pynotify.Notification( "I'm sorry I didn't understand your question" , "", "/usr/bin/ubi.svg")
+    notify = pynotify.Notification( "I'm sorry I didn't understand your question" , "", "/usr/share/ubi/lib/img/ubi.svg")
     notify.show()
 
 a1 = enter.find('my username')
