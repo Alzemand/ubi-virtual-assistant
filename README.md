@@ -13,9 +13,7 @@ She translates phrases into commands in case you ever run into situations.
 # Hi! I am ubi
 </p>
 
-<img alt="After"
-    src="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xfp1/t31.0-8/12694702_967356460006693_8402575353788021083_o.jpg">
-</p>
+
 
 This means you don't have to leave your command line to look up an obscure but useful command. Just ask ubi!
 
@@ -39,5 +37,9 @@ Examples , you can enter naturally
 > ubi show my kernel or whats is my kernel?
 > ubi hello! or hi! or hey!
 > ubi i love you
+
+<img alt="After"
+    src="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xfp1/t31.0-8/12694702_967356460006693_8402575353788021083_o.jpg">
+</p>
 
 # U.B.I means ubi basic intelligence 
