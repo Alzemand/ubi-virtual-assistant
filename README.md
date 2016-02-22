@@ -26,16 +26,23 @@ And she say for you!
 and more...
 
 > ubi what is my ip? or ubi show my ip? ubi my ip!
+
 > ubi please, run speedtest
+
 > ubi show my mac or show my mac adress?
 
 Examples , you can enter naturally
 
 > ubi tell me about yourself
+
 > ubi who is batman?
+
 > ubi search for zumbie sharks
+
 > ubi show my kernel or whats is my kernel?
+
 > ubi hello! or hi! or hey!
+
 > ubi i love you
 
 <img alt="After"
