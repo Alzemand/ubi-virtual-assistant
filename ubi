@@ -10,7 +10,9 @@ import socket
 import uuid
 from random import choice
 
-# espeak -ven+f4 -k5 -s150 'In short, I am your personal assistant. I try to make things easier to do on your computer'
+# espeak -ven+f4 -k5 -s150 ''
+
+# treatment arguments
 
 pynotify.init("ubi")
 comand = sys.argv[1:]
@@ -18,6 +20,8 @@ enter = ' '.join(comand)
 enter = enter.lower()
 enter = enter.replace('?', '')
 enter = enter.replace('!', '')
+
+# functions for the interpretation of string 'enter'
 
 def fun (x):
     if x == 'hi' or x == 'hello' or x == 'hey':
@@ -117,6 +121,12 @@ def search (x):
     os.system("/usr/share/ubi/lib/ubi-search-module " + x)
     os.system("clear")
 
+def wiki (x):
+    notify = pynotify.Notification("okay, I look " + x + " for you" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+    os.system("/usr/share/ubi/lib/ubi-wiki-module " + x)
+    os.system("clear")
+
 def maps (x):
     notify = pynotify.Notification("okay, locating " + x + " for you" , "", "/usr/share/ubi/lib/img/ubi.svg")
     notify.show()
@@ -165,6 +175,8 @@ def sorry ():
     notify = pynotify.Notification( "I'm sorry I didn't understand your question" , "", "/usr/share/ubi/lib/img/ubi.svg")
     notify.show()
 
+# search string in the variable
+
 a1 = enter.find('my username')
 a2 = enter.find('my name')
 a3 = enter.find('my ip')
@@ -176,6 +188,7 @@ a7 = enter.find('my mac adress')
 a8 = enter.find('restore file')
 a9 = enter.find('my kernel')
 
+# function call in accordance with the variable
 
 if enter[a1:] == 'my username':
     username()
@@ -196,7 +209,7 @@ elif a5[0] == 'who' and a5[1] == 'is':
     a5.remove('who')
     a5.remove('is')
     s = ' '.join(a5)
-    search(s)
+    wiki(s)
 
 elif a5[0] == 'search' and a5[1] == 'for':
     a5.remove('search')
