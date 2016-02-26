@@ -118,18 +118,21 @@ def speedtest ():
 def search (x):
     notify = pynotify.Notification("okay, I look " + x + " for you" , "", "/usr/share/ubi/lib/img/ubi.svg")
     notify.show()
+    os.system("/usr/share/ubi/lib/sound-module &")
     os.system("/usr/share/ubi/lib/ubi-search-module " + x)
     os.system("clear")
 
 def wiki (x):
     notify = pynotify.Notification("okay, I look " + x + " for you" , "", "/usr/share/ubi/lib/img/ubi.svg")
     notify.show()
+    os.system("/usr/share/ubi/lib/sound-module &")
     os.system("/usr/share/ubi/lib/ubi-wiki-module " + x)
     os.system("clear")
 
 def maps (x):
     notify = pynotify.Notification("okay, locating " + x + " for you" , "", "/usr/share/ubi/lib/img/ubi.svg")
     notify.show()
+    os.system("/usr/share/ubi/lib/sound-module &")
     os.system("/usr/share/ubi/lib/ubi-map-module " + x)
     os.system("clear")
 
