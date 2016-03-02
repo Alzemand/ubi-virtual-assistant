@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Author: Edilson Alzemand
+
+import gtk
+import webkit
+import sys
+
+
+comand = sys.argv[1:]
+s = ' '.join(comand)
+s = s.replace('á', 'a')
+s = s.replace('é', 'e')
+s = s.replace('í', 'i')
+s = s.replace('ó', 'o')
+s = s.replace('ú', 'u')
+s = s.replace('â', 'a')
+s = s.replace('ê', 'e')
+s = s.replace('î', 'i')
+s = s.replace('ô', 'o')
+s = s.replace('û', 'u')
+s = s.replace('ã', 'a')
+s = s.replace('ç', 'c')
+s = s.replace(' ', '')
+
+
+maps = "https://www.google.com/maps/search/"
+
+view = webkit.WebView()
+win = gtk.Window(gtk.WINDOW_TOPLEVEL)
+win.set_title(' Ꙩ  ubi map search')
+win.set_size_request(1024,640)
+win.set_resizable(True)
+win.connect("destroy",gtk.main_quit)
+win.add(view)
+win.show_all()
+win=gtk.Window()
+view.open(maps + s)
+gtk.main()

@@ -3,6 +3,6 @@ source: ubi
 Version:0.1
 Architecture: all
 Depends: python-webkit, python-notify, finger, python-pygame
-installed-Size: 138
+installed-Size: 165
 Maintainer:Edilson Alzemand
 Description: ubi is a friendly interface for your command line.
