@@ -123,7 +123,7 @@ def netscan():
     os.system("sleep 1")
     subprocess.call(["arp", "-a"])
     print ""
-    print "ubi: You can download the nmap(sudo apt-get install nmap) for more details\n"
+    print "ubi: You can download the nmap (sudo apt-get install nmap) for more details\n"
 
 def search (x):
     notify = pynotify.Notification("okay, I look " + x + " for you" , "", "/usr/share/ubi/lib/img/ubi.svg")
@@ -197,10 +197,20 @@ def clear ():
     os.system("clear")
     print "ubi: Successfully clean system\n"
 
-def sorry ():
+def sorry (x):
     print ("ubi: I'm sorry I didn't understand your question\n" )
     notify = pynotify.Notification( "I'm sorry I didn't understand your question" , "", "/usr/share/ubi/lib/img/ubi.svg")
     notify.show()
+    respost = raw_input("ubi: You want me to search online? [y/n] ")
+    if respost == 'y' or respost == 'Y':
+        x = x.replace('what ', '')
+        x = x.replace('is ', '')
+        x = x.replace('whats ', '')
+        search(x)
+    elif respost == 'n' or respost == 'N':
+        print ("ubi: All right\n")
+        notify = pynotify.Notification("All right!" , ":)", "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
 
 # search string in the variable
 
@@ -236,6 +246,13 @@ elif enter[a10:] == "scan my network" or enter[a11:] == "scan my net":
 
 elif a5 == []:
     fun(enter)
+
+elif a5[0] == 'who' and a5[1] == 'is' and a5[2] == 'better':
+    a5.remove('who')
+    a5.remove('is')
+    a5.remove('better')
+    s = ' '.join(a5)
+    search(s)
 
 elif a5[0] == 'who' and a5[1] == 'is':
     a5.remove('who')
@@ -293,4 +310,4 @@ elif enter[:5] == "clear" or enter[:5] == "clean":
     clear()
 
 elif fun(enter) == False:
-    sorry()
+    sorry(enter)
