@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 
-
 import pygame
 pygame.init()
-
 
 song = pygame.mixer.Sound('/usr/share/ubi/lib/sound/ubi-search.ogg')
 clock = pygame.time.Clock()
