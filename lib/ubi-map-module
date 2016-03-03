@@ -9,18 +9,20 @@ import sys
 
 comand = sys.argv[1:]
 s = ' '.join(comand)
-s = s.replace('á', 'a')
-s = s.replace('é', 'e')
-s = s.replace('í', 'i')
-s = s.replace('ó', 'o')
-s = s.replace('ú', 'u')
-s = s.replace('â', 'a')
-s = s.replace('ê', 'e')
-s = s.replace('î', 'i')
-s = s.replace('ô', 'o')
-s = s.replace('û', 'u')
-s = s.replace('ã', 'a')
-s = s.replace('ç', 'c')
+
+#s = s.replace('á', 'a')
+#s = s.replace('é', 'e')
+#s = s.replace('í', 'i')
+#s = s.replace('ó', 'o')
+#s = s.replace('ú', 'u')
+#s = s.replace('â', 'a')
+#s = s.replace('ê', 'e')
+#s = s.replace('î', 'i')
+#s = s.replace('ô', 'o')
+#s = s.replace('û', 'u')
+#s = s.replace('ã', 'a')
+#s = s.replace('ç', 'c')
+
 s = s.replace(' ', '')
 
 
