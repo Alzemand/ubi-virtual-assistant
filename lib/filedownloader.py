@@ -203,7 +203,7 @@ class SL(Gtk.Dialog): # needs GTK, Python, Webkit-GTK
         
 
 def main():
-	sl = SL();os.system("echo Fall > /tmp/site/Nao.txt")
+	sl = SL();os.system("mkdir /tmp/site");os.system("echo False > /tmp/site/site-log.txt")
 	if sl.run() == Gtk.ResponseType.ACCEPT:
 		sl.hide()
 		#if sl.button.get_label()!='Select folder':

@@ -225,6 +225,21 @@ def qrcode(x):
     os.system("/usr/share/ubi/lib/qr-module " + x)
     os.system("eog /tmp/qrcode-ubi.svg &")
 
+def sitedownload():
+    print ("ubi: Lets download site files\n" )
+    notify = pynotify.Notification( "Lets download site files" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+    os.system ("/usr/share/ubi/lib/filedownloader-bin")
+    a = open ("/tmp/site/site-log.txt", "r")
+    b = a.readline()
+    if b == "True":
+        print ("ubi: Sucess to download")
+        os.system("nautilus /tmp/site/ &")
+    elif b == "False":
+        print ("ubi: Checke your config")
+    else:
+        return 0
+
 def sorry (x):
     print ("ubi: I'm sorry I didn't understand your question\n" )
     notify = pynotify.Notification( "I'm sorry I didn't understand your question" , "", "/usr/share/ubi/lib/img/ubi.svg")
@@ -261,6 +276,8 @@ a8 = enter.find('restore file')
 a9 = enter.find('my kernel')
 a10 = enter.find('scan my network')
 a11 = enter.find('scan my network')
+a12 = enter.find('download site')
+a13 = enter.find('site download')
 
 
 # function call in accordance with the variable
@@ -374,6 +391,9 @@ elif enter[a9:] == "my kernel":
 
 elif enter[:5] == "clear" or enter[:5] == "clean":
     clear()
+
+elif enter[a12:] == "download site" or enter[a13:] == "site download":
+    sitedownload()
 
 elif fun(enter) == False:
     sorry(enter)
