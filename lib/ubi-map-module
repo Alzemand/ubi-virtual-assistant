@@ -22,7 +22,7 @@ s = s.replace('ô', 'o')
 s = s.replace('û', 'u')
 s = s.replace('ã', 'a')
 s = s.replace('ç', 'c')
-s = s.replace(' ', '')
+s = s.replace(' ', '+')
 
 
 maps = "https://www.google.com/maps/search/"
