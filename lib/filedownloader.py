@@ -240,7 +240,7 @@ def main():
 					while Gtk.events_pending():
 						Gtk.main_iteration()
 						
-				os.system("echo True > /tmp/site/Nao.txt")			
+				os.system("echo True > /tmp/site/site-log.txt")			
 if __name__ == '__main__':
     main()
     exit(0)
