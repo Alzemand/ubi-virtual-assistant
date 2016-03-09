@@ -256,7 +256,7 @@ def sorry (x):
             x = x.replace('whats ', '')
             search(x)
         elif respost == 'n' or respost == 'N':
-            print ("ubi: All right\n")
+            print ("\nubi: All right\n")
             notify = pynotify.Notification("All right!" , ":)", "/usr/share/ubi/lib/img/ubi.svg")
             notify.show()
     except:
