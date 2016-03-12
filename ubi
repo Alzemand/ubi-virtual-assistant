@@ -4,6 +4,7 @@
 
 import sys
 import os
+import os.path
 import pynotify
 import re
 import socket
@@ -223,7 +224,12 @@ def qrcode(x):
     notify = pynotify.Notification("All Right, generating QR code..." , "", "/usr/share/ubi/lib/img/ubi.svg")
     notify.show()
     os.system("/usr/share/ubi/lib/qr-module " + x)
-    os.system("eog /tmp/qrcode-ubi.svg &")
+    if os.path.exists('/tmp/qrcode-ubi.svg') == True:
+        os.system("eog /tmp/qrcode-ubi.svg")
+        os.system("clear")
+        os.system("rm /tmp/qrcode-ubi.svg")
+    else:
+        print ("")
 
 def sitedownload():
     print ("ubi: Lets download site files\n" )
@@ -300,6 +306,21 @@ elif enter[a10:] == "scan my network" or enter[a11:] == "scan my net":
 elif a5 == []:
     fun(enter)
 
+elif enter == 'who':
+    print ("ubi: Did you mean 'Who is something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Who is something'?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+elif enter == 'who is':
+    print ("ubi: Did you mean 'Who is something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Who is something'?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+elif enter == 'who is ':
+    print ("ubi: Did you mean 'Who is something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Who is something'?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
 elif a5[0] == 'who' and a5[1] == 'is' and a5[2] == 'better':
     a5.remove('who')
     a5.remove('is')
@@ -312,6 +333,21 @@ elif a5[0] == 'who' and a5[1] == 'is':
     a5.remove('is')
     s = ' '.join(a5)
     wiki(s)
+
+elif enter == 'search':
+    print ("ubi: Did you mean 'Search for something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Search for something'?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+elif enter == 'search for':
+    print ("ubi: Did you mean 'Search for something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Who is something'?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+elif enter == 'search for ':
+    print ("ubi: Did you mean 'Search for something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Who is something'?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
 
 elif a5[0] == 'search' and a5[1] == 'for':
     a5.remove('search')
