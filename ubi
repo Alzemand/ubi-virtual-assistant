@@ -355,6 +355,11 @@ elif a5[0] == 'search' and a5[1] == 'for':
     s = ' '.join(a5)
     search(s)
 
+elif enter == 'qrcode':
+    print ("ubi: Did you mean 'Qrcode for/to something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Qrcode for/to something''?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
 elif a5[0] == 'qrcode' and a5[1] == 'for':
     a5.remove('qrcode')
     a5.remove('for')
@@ -379,11 +384,24 @@ elif a5[0] == 'qrcode' and a5[1] == 'of':
     s = ' '.join(a5)
     qrcode(s)
 
+elif enter == 'generate':
+    print ("ubi: Did you mean 'Generate qrcode something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Generate qrcode something' ?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
 elif a5[0] == 'generate' and a5[1] == 'qrcode':
     a5.remove('generate')
     a5.remove('qrcode')
     s = ' '.join(a5)
     qrcode(s)
+
+elif enter == 'a':
+    sorry(enter)
+
+elif enter == 'a map':
+    print ("ubi: Did you mean 'A map of/from/to '?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'A map of/from/to' ?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
 
 elif a5[0] == 'a' and a5[1] == 'map' and a5[2] == 'of':
     a5.remove('a')
@@ -391,6 +409,18 @@ elif a5[0] == 'a' and a5[1] == 'map' and a5[2] == 'of':
     a5.remove('of')
     s = ' '.join(a5)
     maps(s)
+
+elif a5[0] == 'a' and a5[1] == 'map' and a5[2] == 'to':
+    a5.remove('a')
+    a5.remove('map')
+    a5.remove('of')
+    s = ' '.join(a5)
+    maps(s)
+
+elif enter == 'map':
+    print ("ubi: Did you mean 'Map of/from/to '?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Map of/from/to' ?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
 
 elif a5[0] == 'map' and a5[1] == 'of':
     a5.remove('map')
@@ -400,12 +430,6 @@ elif a5[0] == 'map' and a5[1] == 'of':
 
 elif a5[0] == 'map' and a5[1] == 'from':
     a5.remove('map')
-    a5.remove('from')
-    s = ' '.join(a5)
-    maps(s)
-
-elif a5[0] == 'maps' and a5[1] == 'to':
-    a5.remove('maps')
     a5.remove('from')
     s = ' '.join(a5)
     maps(s)
