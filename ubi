@@ -397,7 +397,6 @@ elif a5[0] == 'generate' and a5[1] == 'qrcode':
 
 elif enter == 'a':
     sorry(enter)
-
 elif enter == 'a map':
     print ("ubi: Did you mean 'A map of/from/to '?\n")
     notify = pynotify.Notification("ubi: Did you mean 'A map of/from/to' ?" , "", "/usr/share/ubi/lib/img/ubi.svg")
