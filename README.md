@@ -18,7 +18,7 @@ This means you don't have to leave your command line to look up an obscure but u
 
 You can ask for her:
 
-> ubi what is my name? or ubi show my name? 
+> ubi what is my name? or ubi show my name?
 
 And she say for you!
 
@@ -26,7 +26,7 @@ and more...
 
 > ubi what is my ip? or ubi show my ip? ubi my ip!
 
-> ubi please, run speedtest
+> ubi please, run speed test
 
 > ubi show my mac or show my mac adress?
 
@@ -48,4 +48,4 @@ Examples , you can enter naturally
     src="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xfp1/t31.0-8/12694702_967356460006693_8402575353788021083_o.jpg">
 </p>
 
-U.B.I means ubi basic intelligence 
+U.B.I means ubi basic intelligence
