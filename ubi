@@ -56,6 +56,7 @@ def fun (x):
         notify = pynotify.Notification("In short, I am your personal assistant. I try to make things easier to do on your computer", '', "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
     elif x == '':
+        os.system("/usr/share/ubi/lib/sound-module ubi &")
         print ("ubi: Hi I am ubi. How can I help you?\n")
         notify = pynotify.Notification("I am ubi. How can I help you?", "type a command", "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
@@ -134,7 +135,7 @@ def search (x):
         s.close()
         notify = pynotify.Notification("okay, I look " + x + " for you" , "", "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
-        os.system("/usr/share/ubi/lib/sound-module &")
+        os.system("/usr/share/ubi/lib/sound-module search &")
         os.system("/usr/share/ubi/lib/ubi-search-module " + x)
         os.system("clear")
     except:
@@ -142,6 +143,15 @@ def search (x):
 
 def wiki (x):
     try:
+
+        '''
+        $ pip install wikipedia
+
+Then to get the first paragraph of an article, just use the wikipedia.summary function.
+
+>>> import wikipedia
+>>> print wikipedia.summary("Albert Einstein", sentences=2)
+''''
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(("ubuntu.com",80))
         e = (s.getsockname()[0])
@@ -247,6 +257,7 @@ def sitedownload():
         return 0
 
 def sorry (x):
+    os.system("/usr/share/ubi/lib/sound-module delay &")
     print ("ubi: I'm sorry I didn't understand your question\n" )
     notify = pynotify.Notification( "I'm sorry I didn't understand your question" , "", "/usr/share/ubi/lib/img/ubi.svg")
     notify.show()
