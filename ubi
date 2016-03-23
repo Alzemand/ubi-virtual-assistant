@@ -10,6 +10,7 @@ import re
 import socket
 import subprocess
 import uuid
+import wikipedia
 from random import choice
 
 # espeak -ven+f4 -k5 -s150 ''
@@ -143,26 +144,49 @@ def search (x):
 
 def wiki (x):
     try:
-
-        '''
-        $ pip install wikipedia
-
-Then to get the first paragraph of an article, just use the wikipedia.summary function.
-
->>> import wikipedia
->>> print wikipedia.summary("Albert Einstein", sentences=2)
-''''
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("ubuntu.com",80))
-        e = (s.getsockname()[0])
-        s.close()
-        notify = pynotify.Notification("okay, I look " + x + " for you" , "", "/usr/share/ubi/lib/img/ubi.svg")
-        notify.show()
-        os.system("/usr/share/ubi/lib/sound-module &")
-        os.system("/usr/share/ubi/lib/ubi-wiki-module " + x)
-        os.system("clear")
+        print ("ubi: search...\n")
+        print "ubi: " + wikipedia.summary( x, sentences=2)
+        print ("\n")
+        respost = raw_input("\nubi: Learn more? [y/n] ")
+        if respost == 'y' or respost == 'Y':
+            notify = pynotify.Notification("okay, I look " + x + " for you" , "", "/usr/share/ubi/lib/img/ubi.svg")
+            notify.show()
+            os.system("/usr/share/ubi/lib/sound-module &")
+            os.system("/usr/share/ubi/lib/ubi-wiki-module " + x)
+            os.system("clear")
+        elif respost == 'n' or respost == 'N':
+            print ("\nubi: All right\n")
+            notify = pynotify.Notification("All right!" , ":)", "/usr/share/ubi/lib/img/ubi.svg")
+            notify.show()
     except:
-        ip()
+        search(x)
+
+def homework (x):
+    print ("ubi: search...\n")
+    wikipedia.set_lang("pt")
+    wikipedia.search(x)
+    wiki = wikipedia.page(x)
+    work = wiki.content
+    os.system("touch /tmp/homework.odt")
+    fwork = open("/tmp/homework.odt", "w+")
+    fwork.write(work)
+    fwork.close()
+    os.system("libreoffice /tmp/homework.odt")
+    os.system("rm /tmp/homework.odt")
+
+
+    '''Remember:
+    >>> ny = wikipedia.page("New York")
+    >>> ny.title
+    # u'New York'
+    >>> ny.url
+    # u'http://en.wikipedia.org/wiki/New_York'
+    >>> ny.content
+    # u'New York is a state in the Northeastern region of the United States. New York is the 27th-most exten'...
+    >>> ny.links[0]
+    # u'1790 United States Census
+    >>> wikipedia.set_lang("fr")
+    >>> wikipedia.summary("Facebook", sentences=1)'''
 
 def maps (x):
     try:
@@ -344,6 +368,24 @@ elif a5[0] == 'who' and a5[1] == 'is':
     a5.remove('is')
     s = ' '.join(a5)
     wiki(s)
+
+#----------------
+elif enter == 'homework':
+    print ("ubi: Did you mean 'Homework on something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Homework on something'?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+elif enter == 'Homework on':
+    print ("ubi: Did you mean 'Homework on something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Homework on something'?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+elif a5[0] == 'homework' and a5[1] == 'on':
+    a5.remove('homework')
+    a5.remove('on')
+    s = ' '.join(a5)
+    homework(s)
+#----------------
 
 elif enter == 'search':
     print ("ubi: Did you mean 'Search for something'?\n")
