@@ -10,7 +10,8 @@ import re
 import socket
 import subprocess
 import uuid
-import wikipedia
+import wikipedia # add to requeriments
+from datetime import datetime
 from random import choice
 
 # espeak -ven+f4 -k5 -s150 ''
@@ -23,6 +24,7 @@ enter = ' '.join(comand)
 enter = enter.lower()
 enter = enter.replace('?', '')
 enter = enter.replace('!', '')
+
 
 # functions for the interpretation of string 'enter'
 
@@ -57,10 +59,21 @@ def fun (x):
         notify = pynotify.Notification("In short, I am your personal assistant. I try to make things easier to do on your computer", '', "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
     elif x == '':
+        date = datetime.now()
         os.system("/usr/share/ubi/lib/sound-module ubi &")
-        print ("ubi: Hi I am ubi. How can I help you?\n")
+        if date.hour > 6 and date.hour < 12:
+            print("ubi: Good Morning")
+            speedtest()
+        elif date.hour >= 12 and date.hour < 18:
+            print("ubi: Good Afternoon")
+            speedtest()
+        else:
+            print ("ubi: Good Night")
+            speedtest()
+
+        '''print ("ubi: Hi I am ubi. How can I help you?\n")
         notify = pynotify.Notification("I am ubi. How can I help you?", "type a command", "/usr/share/ubi/lib/img/ubi.svg")
-        notify.show()
+        notify.show()'''
     else:
         return False
 
@@ -162,18 +175,20 @@ def wiki (x):
         search(x)
 
 def homework (x):
-    print ("ubi: search...\n")
-    wikipedia.set_lang("pt")
-    wikipedia.search(x)
-    wiki = wikipedia.page(x)
-    work = wiki.content
-    os.system("touch /tmp/homework.odt")
-    fwork = open("/tmp/homework.odt", "w+")
-    fwork.write(work)
-    fwork.close()
-    os.system("libreoffice /tmp/homework.odt")
-    os.system("rm /tmp/homework.odt")
-
+    try:
+        print ("ubi: search...\n")
+        wikipedia.set_lang("pt")
+        wikipedia.search(x)
+        wiki = wikipedia.page(x)
+        work = wiki.content
+        os.system("touch /tmp/homework.odt")
+        fwork = open("/tmp/homework.odt", "w+")
+        fwork.write(work)
+        fwork.close()
+        os.system("libreoffice /tmp/homework.odt")
+        os.system("rm /tmp/homework.odt")
+    except:
+        sorry(x)
 
     '''Remember:
     >>> ny = wikipedia.page("New York")
