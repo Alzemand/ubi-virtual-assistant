@@ -24,7 +24,6 @@ s = s.replace('ã', 'a')
 s = s.replace('ç', 'c')
 s = s.replace(' ', '+')
 
-
 maps = "https://www.google.com/maps/search/"
 
 view = webkit.WebView()
