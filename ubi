@@ -100,7 +100,7 @@ def fun (x):
             notify = pynotify.Notification("Good Night! " + b, "Have a good Work :)" , "/usr/share/ubi/lib/img/ubi.svg")
             notify.show()
             speedtest()
-            
+
     elif x == '':
         print ("ubi: Hi I am ubi. How can I help you?\n")
         notify = pynotify.Notification("I am ubi. How can I help you?", "type a command", "/usr/share/ubi/lib/img/ubi.svg")
@@ -189,7 +189,7 @@ def search (x):
 def wiki (x):
     try:
         print ("ubi: search...\n")
-        print "ubi: " + wikipedia.summary( x, sentences=2)
+        print "ubi: " + wikipedia.summary( x, sentences=3)
         print ("\n")
         respost = raw_input("\nubi: Learn more? [y/n] ")
         if respost == 'y' or respost == 'Y':
@@ -208,7 +208,7 @@ def wiki (x):
 def homework (x):
     try:
         print ("ubi: search...\n")
-       #wikipedia.set_lang("pt")
+        wikipedia.set_lang("pt")
         wikipedia.search(x)
         wiki = wikipedia.page(x)
         work = wiki.content
@@ -216,7 +216,7 @@ def homework (x):
         fwork = open("/tmp/homework", "w+")
         fwork.write(work)
         fwork.close()
-        subprocess.Popen(["libreoffice", "apt-/tmp/homework"])
+        os.system("libreoffice /tmp/homework")
         os.system("rm /tmp/homework")
     except:
         sorry(x)
