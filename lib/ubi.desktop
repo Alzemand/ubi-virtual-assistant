@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Exec=ubi starter
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[pt_BR]=ubi
+Name=ubi
+Comment[pt_BR]=ubi basic Inteligenc
+Comment=ubi basic Inteligenc
+Icon=/usr/share/ubi/lib/img/ubi0.svg
