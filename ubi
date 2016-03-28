@@ -51,9 +51,24 @@ def fun (x):
         os.system("date > /tmp/ubi_tmp.txt")
         a = open ("/tmp/ubi_tmp.txt", "r")
         date = a.read()
-        print "ubi: Good morning\n"
-        notify = pynotify.Notification("Good morning", date, "/usr/share/ubi/lib/img/ubi.svg")
+        print "ubi: Good Morning!\n"
+        notify = pynotify.Notification("Good Morning!", date, "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
+    elif x == 'good afternoon':
+        os.system("date > /tmp/ubi_tmp.txt")
+        a = open ("/tmp/ubi_tmp.txt", "r")
+        date = a.read()
+        print "ubi: Good Afternoon!\n"
+        notify = pynotify.Notification("Good Afternoon!", date, "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
+    elif x == 'good night':
+        os.system("date > /tmp/ubi_tmp.txt")
+        a = open ("/tmp/ubi_tmp.txt", "r")
+        date = a.read()
+        print "ubi: Good Night!\n"
+        notify = pynotify.Notification("Good Night!", date, "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
+
     elif x == 'tell me about yourself':
         print "ubi: In short, I am your personal assistant. I try to make things easier to do on your computer\n"
         notify = pynotify.Notification("In short, I am your personal assistant. I try to make things easier to do on your computer", '', "/usr/share/ubi/lib/img/ubi.svg")
@@ -62,14 +77,30 @@ def fun (x):
         date = datetime.now()
         os.system("/usr/share/ubi/lib/sound-module ubi &")
         if date.hour > 6 and date.hour < 12:
-            print("ubi: Good Morning")
+            os.system("finger `whoami` | sed 's/.*: *//;q' > /tmp/ubi_tmp.txt")
+            a = open ("/tmp/ubi_tmp.txt", "r")
+            b = a.read()
+            print("ubi: Good Morning " + b)
+            notify = pynotify.Notification("Good Morning! " + b, "Have a good Job :)", "/usr/share/ubi/lib/img/ubi.svg")
+            notify.show()
             speedtest()
         elif date.hour >= 12 and date.hour < 18:
-            print("ubi: Good Afternoon")
+            os.system("finger `whoami` | sed 's/.*: *//;q' > /tmp/ubi_tmp.txt")
+            a = open ("/tmp/ubi_tmp.txt", "r")
+            b = a.read()
+            print("ubi: Good Afternoon " + b)
+            notify = pynotify.Notification("Good Afternoon! " + b, "have a good Job :)", "/usr/share/ubi/lib/img/ubi.svg")
+            notify.show()
             speedtest()
         else:
-            print ("ubi: Good Night")
+            os.system("finger `whoami` | sed 's/.*: *//;q' > /tmp/ubi_tmp.txt")
+            a = open ("/tmp/ubi_tmp.txt", "r")
+            b = a.read()
+            print ("ubi: Good Night " + b)
+            notify = pynotify.Notification("Good Night! " + b, "Have a good Work :)" , "/usr/share/ubi/lib/img/ubi.svg")
+            notify.show()
             speedtest()
+            
     elif x == '':
         print ("ubi: Hi I am ubi. How can I help you?\n")
         notify = pynotify.Notification("I am ubi. How can I help you?", "type a command", "/usr/share/ubi/lib/img/ubi.svg")
@@ -336,13 +367,17 @@ a12 = enter.find('download site')
 a13 = enter.find('site download')
 
 
-# function call in accordance with the variable
+#                function call in accordance with the variable
+#
+#-------------------------------Name and username------------------------------#
 
 if enter[a1:] == 'my username':
     username()
 
 elif enter[a2:] == 'my name':
     name()
+
+#----------------------------------network-------------------------------------#
 
 elif enter[a3:] == 'my ip':
     ip()
@@ -355,6 +390,8 @@ elif enter[a10:] == "scan my network" or enter[a11:] == "scan my net":
 
 elif a5 == []:
     fun(enter)
+
+#----------------------------------who is...?----------------------------------#
 
 elif enter == 'who':
     print ("ubi: Did you mean 'Who is something'?\n")
@@ -384,7 +421,8 @@ elif a5[0] == 'who' and a5[1] == 'is':
     s = ' '.join(a5)
     wiki(s)
 
-#----------------
+#----------------------------------Homework------------------------------------#
+
 elif enter == 'homework':
     print ("ubi: Did you mean 'Homework on something'?\n")
     notify = pynotify.Notification("ubi: Did you mean 'Homework on something'?" , "", "/usr/share/ubi/lib/img/ubi.svg")
@@ -400,7 +438,8 @@ elif a5[0] == 'homework' and a5[1] == 'on':
     a5.remove('on')
     s = ' '.join(a5)
     homework(s)
-#----------------
+
+#--------------------------------Search online---------------------------------#
 
 elif enter == 'search':
     print ("ubi: Did you mean 'Search for something'?\n")
@@ -422,6 +461,8 @@ elif a5[0] == 'search' and a5[1] == 'for':
     a5.remove('for')
     s = ' '.join(a5)
     search(s)
+
+#--------------------------------Qrcode Creator--------------------------------#
 
 elif enter == 'qrcode':
     print ("ubi: Did you mean 'Qrcode for/to something'?\n")
@@ -462,6 +503,8 @@ elif a5[0] == 'generate' and a5[1] == 'qrcode':
     a5.remove('qrcode')
     s = ' '.join(a5)
     qrcode(s)
+
+#--------------------------------Map module------------------------------------#
 
 elif enter == 'a':
     sorry(enter)
@@ -507,17 +550,27 @@ elif a5[0] == 'map' and a5[1] == 'to':
     s = ' '.join(a5)
     maps(s)
 
+#--------------------------------Mac Adress------------------------------------#
+
 elif enter[a6:] == "my mac" or enter[a7:] == "my mac adress":
     mac()
+
+#------------------------------Restore files-----------------------------------#
 
 elif enter[a8:] == "restore file":
     undelete()
 
+#----------------------------Kernel Information--------------------------------#
+
 elif enter[a9:] == "my kernel":
     kernel()
 
+#-------------------------------Clear System-----------------------------------#
+
 elif enter[:5] == "clear" or enter[:5] == "clean":
     clear()
+
+#-------------------------------Download Site----------------------------------#
 
 elif enter[a12:] == "download site" or enter[a13:] == "site download":
     sitedownload()
