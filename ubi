@@ -58,7 +58,7 @@ def fun (x):
         print "ubi: In short, I am your personal assistant. I try to make things easier to do on your computer\n"
         notify = pynotify.Notification("In short, I am your personal assistant. I try to make things easier to do on your computer", '', "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
-    elif x == '':
+    elif x == 'starter':
         date = datetime.now()
         os.system("/usr/share/ubi/lib/sound-module ubi &")
         if date.hour > 6 and date.hour < 12:
@@ -70,10 +70,10 @@ def fun (x):
         else:
             print ("ubi: Good Night")
             speedtest()
-
-        '''print ("ubi: Hi I am ubi. How can I help you?\n")
+    elif x == '':
+        print ("ubi: Hi I am ubi. How can I help you?\n")
         notify = pynotify.Notification("I am ubi. How can I help you?", "type a command", "/usr/share/ubi/lib/img/ubi.svg")
-        notify.show()'''
+        notify.show()
     else:
         return False
 
@@ -177,16 +177,16 @@ def wiki (x):
 def homework (x):
     try:
         print ("ubi: search...\n")
-        wikipedia.set_lang("pt")
+       #wikipedia.set_lang("pt")
         wikipedia.search(x)
         wiki = wikipedia.page(x)
         work = wiki.content
-        os.system("touch /tmp/homework.odt")
-        fwork = open("/tmp/homework.odt", "w+")
+        os.system("touch /tmp/homework")
+        fwork = open("/tmp/homework", "w+")
         fwork.write(work)
         fwork.close()
-        os.system("libreoffice /tmp/homework.odt")
-        os.system("rm /tmp/homework.odt")
+        subprocess.Popen(["libreoffice", "apt-/tmp/homework"])
+        os.system("rm /tmp/homework")
     except:
         sorry(x)
 
