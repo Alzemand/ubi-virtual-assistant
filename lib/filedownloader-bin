@@ -3,7 +3,7 @@
 #
 # filedownloader launcher
 #
-# Copyright (C) 2011-2013 Lorenzo Carbonell Cerezo ; 2016 Edilson Alzemand 
+# Copyright (C) 2011-2013 Lorenzo Carbonell Cerezo ; 2016 Edilson Alzemand
 # lorenzo.carbonell.cerezo@gmail.com ; edilson.alzemand@gmail.com
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
 
 import os
 import sys
