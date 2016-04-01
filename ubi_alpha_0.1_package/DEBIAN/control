@@ -2,7 +2,7 @@ Package: ubi-virtual-assistant
 source: ubi
 Version:0.1
 Architecture: all
-Depends: python-webkit, python-notify, finger, python-pygame, gir1.2-gtk-3.0, python3-lxml
+Depends: python-webkit, python-notify, finger, python-pygame, gir1.2-gtk-3.0, python3-lxml, python-pip
 installed-Size: 185
 Section: utils
 Priority: extra
