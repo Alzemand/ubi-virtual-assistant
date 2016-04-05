@@ -45,7 +45,7 @@ Examples , you can enter naturally
 > ubi i love you
 
 <img alt="After"
-    src="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xfp1/t31.0-8/12694702_967356460006693_8402575353788021083_o.jpg">
+    src="https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-xaf1/t31.0-8/12916857_1060028007376144_3317812146442337779_o.jpg">
 </p>
 
 U.B.I means ubi basic intelligence
