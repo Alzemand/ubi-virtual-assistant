@@ -27,10 +27,18 @@ import re
 import socket
 import subprocess
 import uuid
-import wikipedia # add to requeriments
+ # add to requeriments
 from datetime import datetime
 from random import choice
 
+try:
+    import wikipedia
+except:
+    print "ubi: 1 modulo falta a ser instalado. Só um momento que irei procurar por ele..."
+    os.system("sleep 3")
+    os.system("sudo apt-get install python-pip")
+    os.system("sudo pip install wikipedia")
+    os.system("clear")
 # espeak -ven+f4 -k5 -s150 ''
 
 # treatment arguments
@@ -57,7 +65,7 @@ def fun (x):
         notify = pynotify.Notification( d , "", "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
     elif x.find("love") > -1:
-        a = ["<3", "Hoo! i can't fell love",]
+        a = ["I'm your assistant and I think we will remain so", "Hoo! I can not feel love. But I will search to understand",]
         b = choice(a)
         print ("ubi: " + b + "\n")
         notify = pynotify.Notification( b , "", "/usr/share/ubi/lib/img/ubi.svg")
@@ -65,6 +73,10 @@ def fun (x):
     elif x.find("thank") > -1:
         print ("ubi: You are welcome!\n")
         notify = pynotify.Notification("You are welcome!", ":)", "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
+    elif x.find("sorry") > -1:
+        print ("ubi: Accepted apologies\n")
+        notify = pynotify.Notification("Accepted apologies", ":)", "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
     elif x == 'good morning':
         os.system("date > /tmp/ubi_tmp.txt")
