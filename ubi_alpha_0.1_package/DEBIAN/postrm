@@ -1,0 +1,4 @@
+#!/bin/sh
+
+#Este script tipicamente modifica links, remove diretórios ou
+#arquivos associados com o pacote.

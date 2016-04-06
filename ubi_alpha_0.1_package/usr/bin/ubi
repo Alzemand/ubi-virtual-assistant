@@ -7,6 +7,7 @@ import os
 import pynotify
 import re
 import socket
+import subprocess
 import uuid
 from random import choice
 
@@ -115,6 +116,15 @@ def speedtest ():
     print (download + upload + ping)
     notify.show()
 
+def netscan():
+    print "ubi: Okay, I will scan your network\n"
+    notify = pynotify.Notification("Scanning your network..." , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+    os.system("sleep 1")
+    subprocess.call(["arp", "-a"])
+    print ""
+    print "ubi: You can download the nmap(sudo apt-get install nmap) for more details\n"
+
 def search (x):
     notify = pynotify.Notification("okay, I look " + x + " for you" , "", "/usr/share/ubi/lib/img/ubi.svg")
     notify.show()
@@ -173,6 +183,20 @@ def kernel ():
     notify = pynotify.Notification("Your Kernel is: " + b , "", "/usr/share/ubi/lib/img/ubi.svg")
     notify.show()
 
+def clear ():
+    print "ubi: Okay, I'll clean up for you\n"
+    notify = pynotify.Notification("Okay, I'll clean up for you" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+    os.system("sleep 1")
+    subprocess.call(["sudo", "apt-get", "autoclean"])
+    subprocess.call(["sudo", "apt-get", "autoremove"])
+    subprocess.call(["sudo", "apt-get", "clean"])
+    notify.close()
+    notify = pynotify.Notification("Successfully clean system" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+    os.system("clear")
+    print "ubi: Successfully clean system\n"
+
 def sorry ():
     print ("ubi: I'm sorry I didn't understand your question\n" )
     notify = pynotify.Notification( "I'm sorry I didn't understand your question" , "", "/usr/share/ubi/lib/img/ubi.svg")
@@ -190,6 +214,8 @@ a6 = enter.find('my mac')
 a7 = enter.find('my mac adress')
 a8 = enter.find('restore file')
 a9 = enter.find('my kernel')
+a10 = enter.find('scan my network')
+a11 = enter.find('scan my network')
 
 # function call in accordance with the variable
 
@@ -204,6 +230,9 @@ elif enter[a3:] == 'my ip':
 
 elif enter[a4:] == 'speedtest' or enter[a44:] == 'speed test':
     speedtest()
+
+elif enter[a10:] == "scan my network" or enter[a11:] == "scan my net":
+    netscan()
 
 elif a5 == []:
     fun(enter)
@@ -259,6 +288,9 @@ elif enter[a8:] == "restore file":
 
 elif enter[a9:] == "my kernel":
     kernel()
+
+elif enter[:5] == "clear" or enter[:5] == "clean":
+    clear()
 
 elif fun(enter) == False:
     sorry()
