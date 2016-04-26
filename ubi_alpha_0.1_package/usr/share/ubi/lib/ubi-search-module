@@ -9,9 +9,7 @@ import sys
 comand = sys.argv[1:]
 s = ' '.join(comand)
 s = s.replace(' ', '+')
-plug = ''
 
-wikipedia = "https://wikipedia.org/wiki/"
 google = "https://www.google.com.br/?gws_rd=ssl#q="
 
 # Windows contruction 

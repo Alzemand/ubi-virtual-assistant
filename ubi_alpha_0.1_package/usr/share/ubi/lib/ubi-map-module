@@ -9,6 +9,7 @@ import sys
 
 comand = sys.argv[1:]
 s = ' '.join(comand)
+
 s = s.replace('á', 'a')
 s = s.replace('é', 'e')
 s = s.replace('í', 'i')
@@ -21,8 +22,7 @@ s = s.replace('ô', 'o')
 s = s.replace('û', 'u')
 s = s.replace('ã', 'a')
 s = s.replace('ç', 'c')
-s = s.replace(' ', '')
-
+s = s.replace(' ', '+')
 
 maps = "https://www.google.com/maps/search/"
 

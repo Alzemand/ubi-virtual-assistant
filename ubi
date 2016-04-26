@@ -34,7 +34,7 @@ from random import choice
 try:
     import wikipedia
 except:
-    print "ubi: 1 modulo falta a ser instalado. Só um momento que irei procurar por ele..."
+    print "ubi: module missing to be installed. Just a moment.."
     os.system("sleep 3")
     os.system("sudo apt-get install python-pip")
     os.system("sudo pip install wikipedia")
