@@ -482,6 +482,7 @@ elif a5[0] == 'homework' and a5[1] == 'on':
     a5.remove('homework')
     a5.remove('on')
     s = ' '.join(a5)
+    s = s.replace('?', '')
     homework(s)
 
 #--------------------------------Search online---------------------------------#
