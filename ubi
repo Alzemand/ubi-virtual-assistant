@@ -27,7 +27,6 @@ import re
 import socket
 import subprocess
 import uuid
- # add to requeriments
 from datetime import datetime
 from random import choice
 
@@ -462,7 +461,10 @@ elif a5[0] == 'who' and a5[1] == 'is':
     a5.remove('who')
     a5.remove('is')
     s = ' '.join(a5)
+    s = s.replace('?', '')
+    s = s.replace('!', '')
     wiki(s)
+
 
 #----------------------------------Homework------------------------------------#
 
@@ -617,6 +619,8 @@ elif enter[:5] == "clear" or enter[:5] == "clean":
 
 elif enter[a12:] == "download site" or enter[a13:] == "site download":
     sitedownload()
+
+#-------------------------------Fun enter--------------------------------------#
 
 elif fun(enter) == False:
     sorry(enter)
