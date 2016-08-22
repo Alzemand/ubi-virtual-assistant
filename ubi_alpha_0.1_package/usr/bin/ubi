@@ -27,14 +27,13 @@ import re
 import socket
 import subprocess
 import uuid
- # add to requeriments
 from datetime import datetime
 from random import choice
 
 try:
     import wikipedia
 except:
-    print "ubi: 1 modulo falta a ser instalado. Só um momento que irei procurar por ele..."
+    print "ubi: module missing to be installed. Just a moment.."
     os.system("sleep 3")
     os.system("sudo apt-get install python-pip")
     os.system("sudo pip install wikipedia")
@@ -462,7 +461,10 @@ elif a5[0] == 'who' and a5[1] == 'is':
     a5.remove('who')
     a5.remove('is')
     s = ' '.join(a5)
+    s = s.replace('?', '')
+    s = s.replace('!', '')
     wiki(s)
+
 
 #----------------------------------Homework------------------------------------#
 
@@ -480,6 +482,7 @@ elif a5[0] == 'homework' and a5[1] == 'on':
     a5.remove('homework')
     a5.remove('on')
     s = ' '.join(a5)
+    s = s.replace('?', '')
     homework(s)
 
 #--------------------------------Search online---------------------------------#
@@ -617,6 +620,8 @@ elif enter[:5] == "clear" or enter[:5] == "clean":
 
 elif enter[a12:] == "download site" or enter[a13:] == "site download":
     sitedownload()
+
+#-------------------------------Fun enter--------------------------------------#
 
 elif fun(enter) == False:
     sorry(enter)
