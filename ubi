@@ -30,6 +30,10 @@ import uuid
 from datetime import datetime
 from random import choice
 
+#  update kernel
+#  sudo update-initramfs -tu -k all
+
+
 try:
     import wikipedia
 except:
