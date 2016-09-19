@@ -32,7 +32,18 @@ from random import choice
 
 #  update kernel
 #  sudo update-initramfs -tu -k all
-
+# -- GRUB
+#  nano /etc/grub.d/05_debian_theme
+#    if [ -z "${2}" ] && [ -z "${3}" ]; then
+#        # echo "   true"
+#        echo "    set color_highlight=yellow/blue"
+#        echo "    set menu_color_normal=yellow/black"
+#        echo "    set color_normal=light-cyan/black"
+#    fi
+# -- PLYMOUTH
+# usr/share/plymouth/themes/ubuntu-logo/ubuntu-logo.script
+# Window.SetBackgroundTopColor (0.00, 0.00, 0.00); # Nice colour on top of the screen fading to
+# Window.SetBackgroundBottomColor (0.00, 0.00, 0.00); # an equally nice colour on the bottom 
 
 try:
     import wikipedia
