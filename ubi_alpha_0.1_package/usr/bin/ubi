@@ -30,6 +30,10 @@ import uuid
 from datetime import datetime
 from random import choice
 
+#implement later
+#  update kernel
+#  sudo update-initramfs -tu -k all
+
 try:
     import wikipedia
 except:
@@ -103,6 +107,12 @@ def fun (x):
         print "ubi: In short, I am your personal assistant. I try to make things easier to do on your computer\n"
         notify = pynotify.Notification("In short, I am your personal assistant. I try to make things easier to do on your computer", '', "/usr/share/ubi/lib/img/ubi.svg")
         notify.show()
+        
+    elif x == 'starter --enable':
+        ubi_on_start(x)
+    elif x == 'starter --remove':
+        ubi_on_start(x)
+        
     elif x == 'starter':
         date = datetime.now()
         os.system("/usr/share/ubi/lib/sound-module ubi &")
@@ -137,6 +147,21 @@ def fun (x):
         notify.show()
     else:
         return False
+
+def ubi_on_start (x):
+	if x == "starter --enable":
+		if os.path.exists('/$HOME/.config/autostart/ubi.desktop') == True:
+			print "ubi: It is already enabled"
+		else:
+			os.system("sudo cp -R /usr/share/ubi/lib/ubi.desktop /$HOME/.config/autostart")
+			print ("ubi: now I will be at startup")
+	elif x == "starter --remove":
+		if os.path.exists('/$HOME/.config/autostart/ubi.desktop') == True:
+			os.system("rm /$HOME/.config/autostart/ubi.desktop")
+		else:
+			print "ubi: It is already removable"
+	else: 
+		return 0;
 
 def username ():
         os.system("whoami > /tmp/ubi_tmp.txt")
