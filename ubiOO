@@ -67,6 +67,8 @@ def fun (x):
         a.close()
         print ("ubi: " + d)
         notify = Notification(d)
+        notify.display()
+
 
     elif x.find("love") > -1:
         a = ["I'm your assistant and I think we will remain so", "Hoo! I can not feel love. But I will search to understand",]
