@@ -1,0 +1,653 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# ubi virtual assistant
+#
+# Copyleft (C) 2016 Edilson Alzemand
+# edilson.alzemand@gmail.com
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+import sys
+import os
+import os.path
+import pynotify
+import re
+import socket
+import subprocess
+import uuid
+from datetime import datetime
+from random import choice
+import sqlite3
+
+
+comand = sys.argv[1:]
+enter = ' '.join(comand)
+enter = enter.lower()
+enter = enter.replace('?', '')
+enter = enter.replace('!', '')
+
+# functions for the interpretation of string 'enter'
+
+# Classe para tratamento
+
+class Notification(object):
+    # Classe para emitir notificações
+    icon = "/usr/share/ubi/lib/img/ubi.svg"
+    def __init__(self, title, subtitle = ""):
+        self.title = title
+        self.subtitle = subtitle
+
+    def display(self):
+        pynotify.init("ubi")
+        notify = pynotify.Notification(self.title , self.subtitle, self.icon)
+        return notify.show()
+
+
+
+def fun (x):
+    if x == 'hi' or x == 'hello' or x == 'hey':
+        os.system("finger `whoami` | sed 's/.*: *//;q' > /tmp/ubi_tmp.txt")
+        a = open ("/tmp/ubi_tmp.txt", "r")
+        b = a.read()
+        c = ["Hi, " , "Hello, ", "What's up! "]
+        c1 = choice(c)
+        d = c1 + b
+        a.close()
+        print ("ubi: " + d)
+        notify = Notification(d)
+
+    elif x.find("love") > -1:
+        a = ["I'm your assistant and I think we will remain so", "Hoo! I can not feel love. But I will search to understand",]
+        b = choice(a)
+        print ("ubi: " + b + "\n")
+        notify = pynotify.Notification( b , "", "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
+    elif x.find("thank") > -1:
+        print ("ubi: You are welcome!\n")
+        notify = pynotify.Notification("You are welcome!", ":)", "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
+    elif x.find("sorry") > -1:
+        print ("ubi: Accepted apologies\n")
+        notify = pynotify.Notification("Accepted apologies", ":)", "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
+    elif x == 'good morning':
+        os.system("date > /tmp/ubi_tmp.txt")
+        a = open ("/tmp/ubi_tmp.txt", "r")
+        date = a.read()
+        print "ubi: Good Morning!\n"
+        notify = pynotify.Notification("Good Morning!", date, "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
+    elif x == 'good afternoon':
+        os.system("date > /tmp/ubi_tmp.txt")
+        a = open ("/tmp/ubi_tmp.txt", "r")
+        date = a.read()
+        print "ubi: Good Afternoon!\n"
+        notify = pynotify.Notification("Good Afternoon!", date, "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
+    elif x == 'good night':
+        os.system("date > /tmp/ubi_tmp.txt")
+        a = open ("/tmp/ubi_tmp.txt", "r")
+        date = a.read()
+        print "ubi: Good Night!\n"
+        notify = pynotify.Notification("Good Night!", date, "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
+
+    elif x.find("about yourself") > -1:
+        print "ubi: In short, I am your personal assistant. I try to make things easier to do on your computer\n"
+        notify = pynotify.Notification("In short, I am your personal assistant. I try to make things easier to do on your computer", '', "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
+
+    elif x == 'starter --enable':
+        ubi_on_start(x)
+    elif x == 'starter --remove':
+        ubi_on_start(x)
+
+    elif x == 'starter':
+        date = datetime.now()
+        os.system("/usr/share/ubi/lib/sound-module ubi &")
+        if date.hour > 6 and date.hour < 12:
+            os.system("finger `whoami` | sed 's/.*: *//;q' > /tmp/ubi_tmp.txt")
+            a = open ("/tmp/ubi_tmp.txt", "r")
+            b = a.read()
+            print("ubi: Good Morning " + b)
+            notify = pynotify.Notification("Good Morning! " + b, "Have a good Job", "/usr/share/ubi/lib/img/ubi.svg")
+            notify.show()
+            speedtest()
+        elif date.hour >= 12 and date.hour < 18:
+            os.system("finger `whoami` | sed 's/.*: *//;q' > /tmp/ubi_tmp.txt")
+            a = open ("/tmp/ubi_tmp.txt", "r")
+            b = a.read()
+            print("ubi: Good Afternoon " + b)
+            notify = pynotify.Notification("Good Afternoon! " + b, "have a good Job", "/usr/share/ubi/lib/img/ubi.svg")
+            notify.show()
+            speedtest()
+        else:
+            os.system("finger `whoami` | sed 's/.*: *//;q' > /tmp/ubi_tmp.txt")
+            a = open ("/tmp/ubi_tmp.txt", "r")
+            b = a.read()
+            print ("ubi: Good Night " + b)
+            notify = pynotify.Notification("Good Night! " + b, "Have a good Work" , "/usr/share/ubi/lib/img/ubi.svg")
+            notify.show()
+            speedtest()
+
+    elif x == '':
+        print ("ubi: Hi I am ubi. How can I help you?\n")
+        notify = pynotify.Notification("I am ubi. How can I help you?", "type a comand", "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
+    else:
+        return False
+
+def ubi_on_start (x):
+	if x == "starter --enable":
+		if os.path.exists('/$HOME/.config/autostart/ubi.desktop') == True:
+			print "ubi: It is already enabled"
+		else:
+			os.system("sudo cp -R /usr/share/ubi/lib/ubi.desktop /$HOME/.config/autostart")
+			print ("ubi: now I will be at startup")
+	elif x == "starter --remove":
+		if os.path.exists('/$HOME/.config/autostart/ubi.desktop') == True:
+			os.system("rm /$HOME/.config/autostart/ubi.desktop")
+		else:
+			print "ubi: It is already removable"
+	else:
+		return 0;
+
+def username ():
+        os.system("whoami > /tmp/ubi_tmp.txt")
+        a = open ("/tmp/ubi_tmp.txt", "r")
+        b = a.read()
+        c = 'Your username is '
+        d = c + b
+        a.close()
+        print ("ubi: " + d)
+        notify = pynotify.Notification( d , "" , "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
+
+def name():
+        os.system("finger `whoami` | sed 's/.*: *//;q' > /tmp/ubi_tmp.txt")
+        a = open ("/tmp/ubi_tmp.txt", "r")
+        b = a.read()
+        c = 'Your name is '
+        d = c + b
+        a.close()
+        print ("ubi: " + d)
+        notify = pynotify.Notification( d , "" , "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
+
+def ip ():
+    try:
+        print ("connecting...\n")
+        os.system('curl -sL http://pannous.net/ip.php > /tmp/ubi_tmp.txt')
+        a = open ("/tmp/ubi_tmp.txt", "r")
+        b = a.read()
+        c = ' '
+        d = c + b
+        a.close()
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("ubuntu.com",80))
+        e = (s.getsockname()[0])
+        s.close()
+        print ("ubi: local " + e)
+        print ("ubi: external" + d)
+        notify = pynotify.Notification('local: ' + e , 'external: ' + d , "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
+    except:
+        print "Hoo! You are not connected to the Internet"
+        notify = pynotify.Notification("Hoo! You are not connected to the Internet" , "", "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
+
+def network_error():
+    a = ["Hoo! You are not connected to the Internet", "Are you connected to the Internet?"]
+    b = choice(a)
+    print ("ubi: " + b + "\n")
+    notify = pynotify.Notification(b, "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+def speedtest ():
+    print ("ubi: Ok, connecting...\n")
+    os.system("/usr/share/ubi/lib/speedtest --simple > /tmp/ubi_tmp.txt")
+    a = open("/tmp/ubi_tmp.txt", "r")
+    ping = a.readline()
+    download = a.readline()
+    upload = a.readline()
+    if ping == "Could not retrieve speedtest.net configuration\n":
+        print("ubi: Could not retrieve speedtest.net configuration\nCheck your internet connection\n")
+        notify = pynotify.Notification( ping , "Check your internet connection" , "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
+    else:
+        notify = pynotify.Notification( download + upload , ping , "/usr/share/ubi/lib/img/ubi.svg")
+        print (download + upload + ping)
+        notify.show()
+
+def netscan():
+    print "ubi: Okay, I will scan your network\n"
+    notify = pynotify.Notification("Scanning your network..." , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+    os.system("sleep 1")
+    subprocess.call(["arp", "-a"])
+    print ""
+    print "ubi: You can download the nmap (sudo apt-get install nmap) for more details\n"
+
+def search (x):
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("ubuntu.com",80))
+        e = (s.getsockname()[0])
+        s.close()
+        notify = pynotify.Notification("okay, I look " + x + " for you" , "", "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
+        os.system("/usr/share/ubi/lib/sound-module search &")
+        os.system("/usr/share/ubi/lib/ubi-search-module " + x)
+        os.system("clear")
+    except:
+        ip()
+
+def wiki (x):
+    try:
+        print ("ubi: search...\n")
+        print "ubi: " + wikipedia.summary( x, sentences=3)
+        print ("\n")
+        respost = raw_input("\nubi: Learn more? [y/n] ")
+        if respost == 'y' or respost == 'Y':
+            notify = pynotify.Notification("okay, I look " + x + " for you" , "", "/usr/share/ubi/lib/img/ubi.svg")
+            notify.show()
+            os.system("/usr/share/ubi/lib/sound-module &")
+            os.system("/usr/share/ubi/lib/ubi-wiki-module " + x)
+            os.system("clear")
+        elif respost == 'n' or respost == 'N':
+            print ("\nubi: All right\n")
+            notify = pynotify.Notification("All right!" , ":)", "/usr/share/ubi/lib/img/ubi.svg")
+            notify.show()
+    except:
+        search(x)
+
+def homework (x):
+    try:
+        print ("ubi: search...\n")
+        wikipedia.set_lang("pt")
+        wikipedia.search(x)
+        wiki = wikipedia.page(x)
+        work = wiki.content
+        os.system("touch /tmp/homework")
+        fwork = open("/tmp/homework", "w+")
+        fwork.write(work)
+        fwork.close()
+        os.system("libreoffice /tmp/homework")
+        os.system("rm /tmp/homework")
+    except:
+        sorry(x)
+
+    '''Remember:
+    >>> ny = wikipedia.page("New York")
+    >>> ny.title
+    # u'New York'
+    >>> ny.url
+    # u'http://en.wikipedia.org/wiki/New_York'
+    >>> ny.content
+    # u'New York is a state in the Northeastern region of the United States. New York is the 27th-most exten'...
+    >>> ny.links[0]
+    # u'1790 United States Census
+    >>> wikipedia.set_lang("fr")
+    >>> wikipedia.summary("Facebook", sentences=1)'''
+
+def maps (x):
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("ubuntu.com",80))
+        e = (s.getsockname()[0])
+        s.close()
+        notify = pynotify.Notification("okay, locating " + x + " for you" , "", "/usr/share/ubi/lib/img/ubi.svg")
+        notify.show()
+        os.system("/usr/share/ubi/lib/sound-module &")
+        os.system("/usr/share/ubi/lib/ubi-map-module " + x)
+        os.system("clear")
+    except:
+        ip()
+
+def mac ():
+    mac = ':'.join(['{:02x}'.format((uuid.getnode() >> i) & 0xff) for i in range(0,8*6,8)][::-1])
+    mac = mac.upper()
+    print "ubi: Your MAC Adress is: " + mac
+    print ''
+    notify = pynotify.Notification( "Your MAC Adress is: " + mac, "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+def undelete():
+    print ("ubi: Ok, lets restore you files\n")
+    print ("ubi: I need to be called into the directory")
+    os.system("sleep 3")
+    os.system("sudo fdisk -l")
+    dev = raw_input("ubi: Enter the name of the partition where your Linux this: exemple: /dev/sda1: ")
+    os.system("pwd > /tmp/ubi_tmp.txt")
+    a = open ("/tmp/ubi_tmp.txt", "r")
+    b = a.readline()
+    b = b.replace('\n', '')
+    b1 = raw_input("ubi: Enter the file name and extension: ")
+    # c = b + '/*.*'
+    b1 = '/' + b1
+    # c = o caminho inteiro do arquivo apagado
+    c = b + b1
+    os.system("sudo extundelete --restore-file " + c + " " + dev)
+    # os.system("sudo extundelete /dev/sda1 --restore-directory " + b)
+    # sudo extundelete /dev/sda1 --restore-all
+
+def kernel ():
+    os.system("uname -r > /tmp/ubi_tmp.txt")
+    a = open ("/tmp/ubi_tmp.txt", "r")
+    b = a.read()
+    c = "ubi: Your kernel is: "
+    d = c + b
+    print (c + b)
+    notify = pynotify.Notification("Your Kernel is: " + b , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+def clear ():
+    print "ubi: Okay, I'll clean up for you\n"
+    notify = pynotify.Notification("Okay, I'll clean up for you" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+    os.system("sleep 1")
+    subprocess.call(["sudo", "apt-get", "autoclean", "-y"])
+    subprocess.call(["sudo", "apt-get", "autoremove", "-y"])
+    subprocess.call(["sudo", "apt-get", "clean","-y" ])
+    notify.close()
+    notify = pynotify.Notification("Successfully clean system" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+    os.system("clear")
+    print "ubi: Successfully clean system\n"
+
+def qrcode(x):
+    print "ubi: All Right, generating QR code...\n"
+    notify = pynotify.Notification("All Right, generating QR code..." , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+    os.system("/usr/share/ubi/lib/qr-module " + x)
+    if os.path.exists('/tmp/qrcode-ubi.svg') == True:
+        os.system("eog /tmp/qrcode-ubi.svg")
+        os.system("clear")
+        os.system("rm /tmp/qrcode-ubi.svg")
+    else:
+        print ("")
+
+def sitedownload():
+    print ("ubi: Lets download site files\n" )
+    notify = pynotify.Notification( "Lets download site files" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+    os.system ("/usr/share/ubi/lib/filedownloader-bin &")
+    a = open ("/tmp/site/site-log.txt", "r")
+    b = a.readline()
+    if b == "True":
+        print ("ubi: Sucess to download")
+        os.system("nautilus /tmp/site/ &")
+    elif b == "False":
+        print ("ubi: Checke your config")
+    else:
+        return 0
+
+def sorry (x):
+    os.system("/usr/share/ubi/lib/sound-module delay &")
+    print ("ubi: I'm sorry I didn't understand your question\n" )
+    notify = pynotify.Notification( "I'm sorry I didn't understand your question" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+    respost = raw_input("ubi: You want me to search online? [y/n] ")
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("ubuntu.com",80))
+        e = (s.getsockname()[0])
+        s.close()
+        if respost == 'y' or respost == 'Y':
+            x = x.replace('what ', '')
+            x = x.replace('is ', '')
+            x = x.replace('whats ', '')
+            search(x)
+        elif respost == 'n' or respost == 'N':
+            print ("\nubi: All right\n")
+            notify = pynotify.Notification("All right!" , ":)", "/usr/share/ubi/lib/img/ubi.svg")
+            notify.show()
+    except:
+        network_error()
+
+# search string in the variable
+
+a1 = enter.find('my username')
+a2 = enter.find('my name')
+a3 = enter.find('my ip')
+a4 = enter.find('speedtest')
+a44 = enter.find ('speed test')
+a5 = comand
+a6 = enter.find('my mac')
+a7 = enter.find('my mac adress')
+a8 = enter.find('restore file')
+a9 = enter.find('my kernel')
+a10 = enter.find('scan my network')
+a11 = enter.find('scan my network')
+a12 = enter.find('download site')
+a13 = enter.find('site download')
+
+
+#                function call in accordance with the variable
+#
+#-------------------------------Name and username------------------------------#
+
+if enter[a1:] == 'my username':
+    username()
+
+elif enter[a2:] == 'my name':
+    name()
+
+#----------------------------------network-------------------------------------#
+
+elif enter[a3:] == 'my ip':
+    ip()
+
+elif enter[a4:] == 'speedtest' or enter[a44:] == 'speed test':
+    speedtest()
+
+elif enter[a10:] == "scan my network" or enter[a11:] == "scan my net":
+    netscan()
+
+elif a5 == []:
+    fun(enter)
+
+#----------------------------------who is...?----------------------------------#
+
+elif enter == 'who':
+    print ("ubi: Did you mean 'Who is something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Who is something'?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+elif enter == 'who is':
+    print ("ubi: Did you mean 'Who is something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Who is something'?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+elif enter == 'who is ':
+    print ("ubi: Did you mean 'Who is something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Who is something'?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+elif a5[0] == 'who' and a5[1] == 'is' and a5[2] == 'better':
+    a5.remove('who')
+    a5.remove('is')
+    a5.remove('better')
+    s = ' '.join(a5)
+    search(s)
+
+elif a5[0] == 'who' and a5[1] == 'is':
+    a5.remove('who')
+    a5.remove('is')
+    s = ' '.join(a5)
+    s = s.replace('?', '')
+    s = s.replace('!', '')
+    wiki(s)
+
+
+#----------------------------------Homework------------------------------------#
+
+elif enter == 'homework':
+    print ("ubi: Did you mean 'Homework on something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Homework on something'?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+elif enter == 'Homework on':
+    print ("ubi: Did you mean 'Homework on something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Homework on something'?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+elif a5[0] == 'homework' and a5[1] == 'on':
+    a5.remove('homework')
+    a5.remove('on')
+    s = ' '.join(a5)
+    s = s.replace('?', '')
+    homework(s)
+
+#--------------------------------Search online---------------------------------#
+
+elif enter == 'search':
+    print ("ubi: Did you mean 'Search for something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Search for something'?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+elif enter == 'search for':
+    print ("ubi: Did you mean 'Search for something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Who is something'?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+elif enter == 'search for ':
+    print ("ubi: Did you mean 'Search for something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Who is something'?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+elif a5[0] == 'search' and a5[1] == 'for':
+    a5.remove('search')
+    a5.remove('for')
+    s = ' '.join(a5)
+    search(s)
+
+#--------------------------------Qrcode Creator--------------------------------#
+
+elif enter == 'qrcode':
+    print ("ubi: Did you mean 'Qrcode for/to something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Qrcode for/to something''?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+elif a5[0] == 'qrcode' and a5[1] == 'for':
+    a5.remove('qrcode')
+    a5.remove('for')
+    s = ' '.join(a5)
+    qrcode(s)
+
+elif a5[0] == 'qrcode' and a5[1] == 'from':
+    a5.remove('qrcode')
+    a5.remove('from')
+    s = ' '.join(a5)
+    qrcode(s)
+
+elif a5[0] == 'qrcode' and a5[1] == 'to':
+    a5.remove('qrcode')
+    a5.remove('to')
+    s = ' '.join(a5)
+    qrcode(s)
+
+elif a5[0] == 'qrcode' and a5[1] == 'of':
+    a5.remove('qrcode')
+    a5.remove('of')
+    s = ' '.join(a5)
+    qrcode(s)
+
+elif enter == 'generate':
+    print ("ubi: Did you mean 'Generate qrcode something'?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Generate qrcode something' ?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+elif a5[0] == 'generate' and a5[1] == 'qrcode':
+    a5.remove('generate')
+    a5.remove('qrcode')
+    s = ' '.join(a5)
+    qrcode(s)
+
+#--------------------------------Map module------------------------------------#
+
+elif enter == 'a':
+    sorry(enter)
+elif enter == 'a map':
+    print ("ubi: Did you mean 'A map of/from/to '?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'A map of/from/to' ?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+elif a5[0] == 'a' and a5[1] == 'map' and a5[2] == 'of':
+    a5.remove('a')
+    a5.remove('map')
+    a5.remove('of')
+    s = ' '.join(a5)
+    maps(s)
+
+elif a5[0] == 'a' and a5[1] == 'map' and a5[2] == 'to':
+    a5.remove('a')
+    a5.remove('map')
+    a5.remove('of')
+    s = ' '.join(a5)
+    maps(s)
+
+elif enter == 'map':
+    print ("ubi: Did you mean 'Map of/from/to '?\n")
+    notify = pynotify.Notification("ubi: Did you mean 'Map of/from/to' ?" , "", "/usr/share/ubi/lib/img/ubi.svg")
+    notify.show()
+
+elif a5[0] == 'map' and a5[1] == 'of':
+    a5.remove('map')
+    a5.remove('of')
+    s = ' '.join(a5)
+    maps(s)
+
+elif a5[0] == 'map' and a5[1] == 'from':
+    a5.remove('map')
+    a5.remove('from')
+    s = ' '.join(a5)
+    maps(s)
+
+elif a5[0] == 'map' and a5[1] == 'to':
+    a5.remove('maps')
+    a5.remove('from')
+    s = ' '.join(a5)
+    maps(s)
+
+#--------------------------------Mac Adress------------------------------------#
+
+elif enter[a6:] == "my mac" or enter[a7:] == "my mac adress":
+    mac()
+
+#------------------------------Restore files-----------------------------------#
+
+elif enter[a8:] == "restore file":
+    undelete()
+
+#----------------------------Kernel Information--------------------------------#
+
+elif enter[a9:] == "my kernel":
+    kernel()
+
+#-------------------------------Clear System-----------------------------------#
+
+elif enter[:5] == "clear" or enter[:5] == "clean":
+    clear()
+
+#-------------------------------Download Site----------------------------------#
+
+elif enter[a12:] == "download site" or enter[a13:] == "site download":
+    sitedownload()
+
+#-------------------------------Fun enter--------------------------------------#
+
+elif fun(enter) == False:
+    sorry(enter)
