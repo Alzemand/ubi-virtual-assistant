@@ -1,5 +1,13 @@
 # ubi virtual assistant
 
+#Need 
+
+python3-notify2
+python3-setuptools
+python-pip3 
+(google_speech)
+
+
 ubi is a Virtual Assistante and a friendly interface for your command line.
 She translates phrases into commands in case you ever run into situations.
 

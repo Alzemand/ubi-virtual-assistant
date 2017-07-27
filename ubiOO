@@ -49,19 +49,23 @@ except:
 # Definir cursor
 cursor = conn.cursor()
 
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS answer (
+    "idanswer" INTEGER NOT NULL,
+    "answercol" TEXT,
+    "terminal" BLOB
+    );
+    """)
 
 cursor.execute("""
-CREATE TABLE IF NOT EXISTS question (
-    idquestion INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    questioncol TEXT NOT NULL
-    );""")
+    CREATE TABLE IF NOT EXISTS "question" (
+    "idquestion" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    "idanswer" INTEGER REFERENCES answer (idanswer),
+    "questioncol" TEXT);
+    """)
 
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS answer (
-    answer INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    answercol LONGTEXT NULL,
-    terminal TINYINT(1) NULL
-    );""")
+
+conn.close()
 
 # Classe para tratamento de notificações
 
@@ -76,3 +80,14 @@ class Notification(object):
         notify2.init("ubi")
         notify = notify2.Notification(self.title , self.subtitle, self.icon)
         return notify.show()
+
+
+class QuestionAsAnswer(object):
+    def __init__(self, question, answer):
+        self.question = question
+        self.answer = answer
+
+    def insertQuestion(self):
+        conn = sqlite3.connect((os.path.expanduser('~//.ubi/brain.db')))
+        cursor = conn.cursor()
+        cursor.execute("""INSERT INTO question""")
