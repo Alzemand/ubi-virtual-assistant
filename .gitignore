@@ -1,2 +1,6 @@
 *.*~
 *~
+*.sqlite3
+*.pickle
+*.mp3
+

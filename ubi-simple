@@ -1,0 +1,77 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# ubi virtual assistant
+#
+# Copyleft (C) 2016 Edilson Alzemand
+# edilson_alzemand@id.uff.br
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+import speech_recognition as sr 
+from gtts import gTTS
+from playsound import playsound 
+import os
+
+def ouvir_microfone():
+    frase = ''
+    microfone = sr.Recognizer()
+    with sr.Microphone() as source:
+        microfone.adjust_for_ambient_noise(source, duration=0.5)
+        print("ubi: Microfone ativo...")
+        audio=microfone.listen(source)
+    try:
+        frase = microfone.recognize_google(audio, language='pt-BR')
+        print('Humano: ' + frase)
+    except sr.UnknownValueError:
+        print("ubi: Isso não funcionou")
+    return frase
+
+def cria_audio(audio):
+    tts = gTTS(audio, lang='pt-BR')
+    tts.save('ubi.mp3')
+    playsound('ubi.mp3')
+
+
+while True:
+    ativar = ouvir_microfone()
+    ativar = ativar.lower()
+    if ativar.find('sistema') > -1:
+        playsound('lib/sound/question.ogg')
+        cria_audio(str('Em que posso ajudar?'))
+        quest = ouvir_microfone()
+        quest = quest.lower()
+        if quest.find('abrir') > -1 and quest.find('spotify') > -1:
+            cria_audio(str('Abrindo Spotify'))
+            os.system("notify-send 'UBI' 'Abrindo Spotify'")
+            os.system('microsoft-edge https://open.spotify.com/')
+            print('Ubi: ', 'Abrindo Spotify')
+        elif quest.find('abrir') > -1 and quest.find('netflix') > -1 :
+            cria_audio(str('Abrindo Netflix'))
+            os.system("notify-send 'UBI' 'Abrindo Netflix'")
+            os.system('microsoft-edge https://www.netflix.com/')
+            print('Ubi: ', 'Abrindo Netflix')
+        elif quest.find('pesquisar') > -1 and quest.find('netflix') > -1 :
+            cria_audio(str('Abrindo Netflix'))
+            netflix = quest
+            netflix = netflix.replace('pesquisar', '')
+            netflix = netflix.replace('netflix', '')
+            netflix = netflix.replace(' ', '')
+            netflix = netflix.replace('em', '')
+            netflix = netflix.replace('no', '')
+            os.system("notify-send 'UBI' 'Abrindo Netflix'")
+            os.system('microsoft-edge https://www.netflix.com/search?q=' + netflix)
+            print('Ubi: ', 'Abrindo Netflix')
+
+

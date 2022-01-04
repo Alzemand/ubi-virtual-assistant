@@ -1,59 +1,14 @@
 # ubi virtual assistant
 
-#Need 
-
-python3-notify2
-python3-setuptools
-python-pip3 
-(google_speech)
 
 
-ubi is a Virtual Assistante and a friendly interface for your command line.
-She translates phrases into commands in case you ever run into situations.
+Ubi é um assistente virtual muito simples.
+Existem duas versões, ubi e ubi-simple. 
+Você pode configurar para executar comandos com a voz, desde de que você saiba programar.
 
-<p align="center">
-<img alt="ubi"
-    src="https://design.ubuntu.com/wp-content/uploads/logo-canonical_symbol-black-hex.png">
-</p>
-
-<p align="center">
-Hi! I am ubi
-</p>
+Ideal para executar comandos enquanto se está operando o computador. É possivel coloca-la em segundo plano, então ela fica escutando e processando em segundo plano, e só executa quando for chamada, como o Google Assistente, Cortana e a Bixby. 
 
 
 
-This means you don't have to leave your command line to look up an obscure but useful command. Just ask ubi!
 
-You can ask for her:
-
-> ubi what is my name? or ubi show my name?
-
-And she say for you!
-
-and more...
-
-> ubi what is my ip? or ubi show my ip? ubi my ip!
-
-> ubi please, run speed test
-
-> ubi show my mac or show my mac adress?
-
-Examples , you can enter naturally
-
-> ubi tell me about yourself
-
-> ubi who is batman?
-
-> ubi search for zombie sharks
-
-> ubi show my kernel or whats is my kernel?
-
-> ubi hello! or hi! or hey!
-
-> ubi i love you
-
-<img alt="After"
-    src="https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-xaf1/t31.0-8/12916857_1060028007376144_3317812146442337779_o.jpg">
-</p>
-
-U.B.I means ubi basic intelligence
+U.B.I significa UBI básica inteligência 

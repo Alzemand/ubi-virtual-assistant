@@ -1,0 +1,9 @@
+chatterbot==1.0.5
+chatterbot_corpus==1.2.0
+SpeechRecognition==3.8.1
+gtts==2.2.3
+playsound==1.3.0
+pyaudio
+
+#if you have problems when you try install pyaudio using pip
+#sudo apt install python3-pyaudio

@@ -1,6 +1,0 @@
-#!/bin/sh
-
-
-#Este script geralmente interrompe daemons de serviços rela-
-#cionados com o pacote, ou executa outros procedimentos que precisam
-#ser realizados antes do pacote ser removido.
